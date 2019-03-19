@@ -11,6 +11,7 @@ app.secret_key = 'adkjfalj.adflja.dfnasdf.asd'
 
 @app.route('/')
 def index():
-    return 'hello'
+    return render_template('layout.html')
+    
 if __name__ == '__main__':
     app.run(debug=DEBUG, port=PORT)
