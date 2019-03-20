@@ -34,12 +34,23 @@ nav{
     margin:10px;
     margin-top:15px;
     padding:10px;
-    background-color: black;
-    color:white;
-    border-radius: 20px;
     font-size: 16px;
 }
 
 * {
     font-family: 'Roboto', sans-serif;
+}
+
+.carousel-item img{
+    height: 400px;
+}
+
+#aboutWrap{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#aboutWrap p{
+    width:600px;
 }

@@ -11,6 +11,7 @@ class Neighbor(Model):
     city = CharField()
     state = CharField()
     coutry = CharField(default='USA')
+
     class Meta:
         database = DATABASE
         order_by = ('-neighbname',)
@@ -18,6 +19,22 @@ class Neighbor(Model):
     @classmethod
     def get_neighbor(cls,neighbname):
         return Neighbor.select().where(Neighbor.neighbname == self)
+
+    class Meta:
+        database = DATABASE
+
+    @classmethod
+    def get_neighbor(self):
+        return Neighbor.select().where(Neighbor.neighname == self)
+
+class Meta:
+    database = DATABASE
+    order_by = ('-neighbname',)
+
+@classmethod
+def get_neighbor(cls,neighbname):
+    return Neighbor.select().where(Neighbor.neighbname == self)
+
 
 
 class User(UserMixin, Model):
