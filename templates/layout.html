@@ -22,6 +22,7 @@
         <nav id="navButtons">
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
+                <h3>Hello</h3>
                 <!-- signout button -->
                 <a href="{{url_for("logout")}}"> <button class="btn btn-dark">Sign Out</button></a>
 
