@@ -74,7 +74,7 @@ def index():
     if sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
 
-    return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
+    return render_template('auth.html', sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
