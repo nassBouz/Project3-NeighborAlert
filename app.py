@@ -58,7 +58,7 @@ def handle_signin(form):
         if check_password_hash(user.password, form.password.data):
             ## creates session
             login_user(user)
-            flash(f'Hi! {fullname}, You have successfully Signed In!!!', 'success signin')
+            flash('Hi! You have successfully Signed In!!!', 'success signin')
             return redirect(url_for('index'))
         else:
             flash("your email or password doesn't match", "error")
