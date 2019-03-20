@@ -5,6 +5,7 @@ from flask_bcrypt import check_password_hash
 
 import models
 import forms
+import json
 
 
 DEBUG = True
@@ -50,6 +51,7 @@ def handle_signup(form):
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
+<<<<<<< HEAD
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
 
@@ -57,6 +59,18 @@ def index():
         handle_signup(sign_up_form)
 
     return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
+=======
+    with open('neighborhoods.json') as json_data:
+        neighborhoods = json.load(json_data)
+        return render_template('neighborhoods.html',neighborhoods=neighborhoods)
+
+
+#     @app.route('/')
+# def index():
+#     with open('subs.json') as json_data:
+#         subs = json.load(json_data)
+#         return render_template('subs.html', subs=subs)
+>>>>>>> 3c487128fd178d9ba7ff16e40c1a24f209e11f20
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():

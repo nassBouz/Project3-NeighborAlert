@@ -7,16 +7,26 @@ from flask_bcrypt import generate_password_hash
 DATABASE = SqliteDatabase('neighbors.db')
 
 class Neighbor(Model):
-    neighname = CharField(unique=True)
+    neighbname = CharField(unique=True)
     city = CharField()
     state = CharField()
     coutry = CharField(default='USA')
+<<<<<<< HEAD
     class Meta:
         database = DATABASE
 
     @classmethod
     def get_neighbor(self):
         return Neighbor.select().where(Neighbor.neighname == self)
+=======
+class Meta:
+    database = DATABASE
+    order_by = ('-neighbname',)
+
+@classmethod
+def get_neighbor(cls,neighbname):
+    return Neighbor.select().where(Neighbor.neighbname == self)
+>>>>>>> 3c487128fd178d9ba7ff16e40c1a24f209e11f20
 
 
 class User(UserMixin, Model):
@@ -29,6 +39,7 @@ class User(UserMixin, Model):
     
     class Meta:
         database = DATABASE
+        order_by = ('-joined_at',)
         
     @classmethod
     def create_user(cls, username, email,fullname, password, admin=False):
@@ -52,19 +63,70 @@ class User(UserMixin, Model):
 
 
 class Post(Model):
-    timestamp = DateTimeField(default=datetime.datetime.now())
+    datePostCreated = DateTimeField(default=datetime.datetime.now())
     user = ForeignKeyField(
         model=User,
         backref='posts'
     )
-    content = TextField()
+    neighbor = ForeignKeyField(
+        model= Neighbor,
+        # not sure backref to posts ?
+        backref='posts' 
+    )
+    # CATEGORY_CHOICES = (
+    #     (0, 'Event'),
+    #     (1, 'Garage Sale'),
+    #     (2, 'Play Dates'),
+    #     (3, 'Burglary/theft'),
+    #     (4, 'Lost and Found'),
+    #     (5, 'Play Date'),
+    #     (6, 'Other'))
+    # category = IntegerField(choices=CATEGORY_CHOICES)
+    # def get_category_label(self):
+    #     return dict(self.CATEGORY_CHOICES)[self.category]
+
+    address = TextField()
+    imgUrl = CharField()
+    text = TextField()
+    category = CharField()
+    priority = IntegerField()
 
     class Meta:
         database = DATABASE
-        order_by = ('-timestamp',)
-        
-        
+        order_by = ('-datePostCreated',)
+    
+    @classmethod
+    # create a method to get all the comments for a post
+    def get_comments(self):
+        return Comment.select().where(Comment.post == self)
+
+    # def get_stream(self):
+    #     return Comment.select().where(
+    #         (Comment.post == self)
+    #     )
+class Comment(Model):
+    dateCommentCreated= DateTimeField(default=datetime.datetime.now())
+    user = ForeignKeyField(
+        model=User,
+        backref='comments'
+    )
+    post= ForeignKeyField(
+        model=Post,
+        backref='comments'
+    )
+    commentText = TextField()
+
+    class Meta:
+        database = DATABASE
+        order_by = ('-dateCommentCreated',)
+
+class UserUpVote(Model):
+    userId = IntegerField()
+    postId = IntegerField()
+    class Meta:
+        database = DATABASE
+
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Post], safe=True)
+    DATABASE.create_tables([User, Post, Neighbor,UserUpVote], safe=True)
     DATABASE.close()       
