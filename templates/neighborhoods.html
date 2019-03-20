@@ -5,11 +5,11 @@
 {% for neighborhood in neighborhoods %}
 <article class="message is-dark">
     <div class="message-header">
-        <a>{{neighborhood.neighbname}}</a>
+        <a href="{{url_for('post')}}">{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
     </div>
-    <div class="message-body">
-        {{neighborhood.city}}
-    </div>
+    <!-- <div class="message-body">
+       
+    </div> -->
 </article>
 {% endfor %}
 {% endblock %}

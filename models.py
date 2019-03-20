@@ -10,30 +10,31 @@ class Neighbor(Model):
     neighbname = CharField(unique=True)
     city = CharField()
     state = CharField()
-    coutry = CharField(default='USA')
+    country = CharField(default='USA')
 
     class Meta:
         database = DATABASE
         order_by = ('-neighbname',)
 
-    @classmethod
-    def get_neighbor(cls,neighbname):
-        return Neighbor.select().where(Neighbor.neighbname == self)
-
-    class Meta:
-        database = DATABASE
-
+    # @classmethod
+    # def get_neighbor(cls,neighbname):
+    #     return Neighbor.select().where(Neighbor.neighbname == self)
     @classmethod
     def get_neighbor(self):
         return Neighbor.select().where(Neighbor.neighname == self)
 
-class Meta:
-    database = DATABASE
-    order_by = ('-neighbname',)
+    @classmethod
+    def create_neighborhood(cls, neighbname, city, state, country):
+        try:
+            cls.create(
+                neighbname = neighbname,
+                city = city,
+                state = state,
+                country = country
+            )
+        except IntegrityError:
+            raise ValueError("Neighborhood already exists")
 
-@classmethod
-def get_neighbor(cls,neighbname):
-    return Neighbor.select().where(Neighbor.neighbname == self)
 
 
 

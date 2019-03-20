@@ -51,18 +51,22 @@ def handle_signup(form):
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
+    neighborhoods = models.Neighbor.select()
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
 
     if sign_up_form.validate_on_submit():
         handle_signup(sign_up_form)
 
-    return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
+    return render_template('neighborhoods.html', neighborhoods=neighborhoods,sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 
 #  with open('neighborhoods.json') as json_data:
 #         neighborhoods = json.load(json_data)
 #         return render_template('neighborhoods.html',neighborhoods=neighborhoods)
+@app.route('/post')
+def post_page():
+    return redirect('post.html')
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
@@ -135,14 +139,32 @@ def stream(username=None):
 
 if __name__ == '__main__':
     models.initialize()
-    # try:
-    #     models.User.create_user(
-    #         username='jimbo',
-    #         email="jim@jim.com",
-    #         password='password',
-    #         admin=True
-    #         )
-    # except ValueError:
-    #     pass
+    try:
+        models.Neighbor.create_neighborhood(
+            neighbname = 'FIDI',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'China Town',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'North Beach',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'SoMa',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+    except ValueError:
+        pass
 
     app.run(debug=DEBUG, port=PORT)
