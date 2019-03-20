@@ -112,14 +112,8 @@ class Comment(Model):
         order_by = ('-dateCommentCreated',)
 
 class UserUpVote(Model):
-    user = ForeignKeyField(
-        model=User,
-        backref='userUpVotes'
-    )
-    post = ForeignKeyField(
-        model=User,
-        backref='userUpVotes'
-    )
+    userId = IntegerField()
+    postId = IntegerField()
     class Meta:
         database = DATABASE
 
