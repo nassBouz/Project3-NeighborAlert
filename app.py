@@ -49,6 +49,20 @@ def handle_signup(form):
         fullname=form.fullname.data)
     return redirect(url_for('index'))
 
+def handle_signin(form):
+    try:
+        user = models.User.get(models.User.email == form.email.data)
+    except models.DoesNotExist:
+        flash("your email or password doesn't match", "error")
+    else:
+        if check_password_hash(user.password, form.password.data):
+            ## creates session
+            login_user(user)
+            flash(f'Hi! {fullname}, You have successfully Signed In!!!', 'success signin')
+            return redirect(url_for('index'))
+        else:
+            flash("your email or password doesn't match", "error")
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
     sign_up_form = forms.SignUpForm()
@@ -56,6 +70,9 @@ def index():
 
     if sign_up_form.validate_on_submit():
         handle_signup(sign_up_form)
+
+    if sign_in_form.validate_on_submit():
+        handle_signin(sign_in_form)
 
     return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
