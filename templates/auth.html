@@ -24,4 +24,18 @@
 </form>
 {% endblock %}
 
+{% block content %}
+<h1>Neighborhoods</h1>
+{% for neighborhood in neighborhoods %}
+<article class="message is-dark">
+    <div class="message-header">
+        <a href={{url_for('neighborpage', neighborid=neighborhood.id)}}>{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
+    </div>
+    <!-- <div class="message-body">
+       
+    </div> -->
+</article>
+{% endfor %}
+{% endblock %}
+
 

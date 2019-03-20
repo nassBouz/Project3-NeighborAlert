@@ -63,14 +63,9 @@ def handle_signin(form):
         else:
             flash("your email or password doesn't match", "error")
 
-# @login_required
-# def handle_logout():
-#     logout_user()
-#     flash("You've been logged out", "success")
-#     return redirect(url_for('index'))
-
 @app.route('/', methods=('GET', 'POST'))
 def index():
+    neighborhoods = models.Neighbor.select()
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
     logout_user()
@@ -81,8 +76,24 @@ def index():
     elif sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
 
+    return render_template('auth.html', neighborhoods=neighborhoods,sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
-    return render_template('auth.html', sign_up_form=sign_up_form, sign_in_form=sign_in_form)
+
+@app.route('/<neighborid>', methods=['GET'])
+def neighborpage(neighborid):
+    neighbor_model = models.Neighbor.get_by_id(int(neighborid))
+    posts = models.Post.get(models.Post.neighbor==int(neighborid))
+
+    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts) 
+    
+    # neighbor=None
+    # if neighbor == None:
+    #     neighbors = models.Neighbor.select().limit(100) # now I am looking into Sub Model
+    #     return render_template("neighbor.html", neighbors=neighbors) 
+    # else:
+    #     neighbor_id = int(neighbor)
+    #     neighbor_model = models.Neighbor.get_by_id(neighbor_id) 
+    # return render_template('neighborpage.html')
 
 # @app.route('/signup', methods=('GET', 'POST'))
 # def signup():
@@ -126,7 +137,7 @@ def logout():
 
 @app.route('/new_post', methods=('GET', 'POST'))
 @login_required
-def post():
+def new_post():
     form = forms.PostForm()
     if form.validate_on_submit():
         models.Post.create(user=g.user._get_current_object(),
@@ -155,14 +166,32 @@ def stream(username=None):
 
 if __name__ == '__main__':
     models.initialize()
-    # try:
-    #     models.User.create_user(
-    #         username='jimbo',
-    #         email="jim@jim.com",
-    #         password='password',
-    #         admin=True
-    #         )
-    # except ValueError:
-    #     pass
+    try:
+        models.Neighbor.create_neighborhood(
+            neighbname = 'FIDI',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'China Town',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'North Beach',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'SoMa',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA'
+            )
+    except ValueError:
+        pass
 
     app.run(debug=DEBUG, port=PORT)

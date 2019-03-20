@@ -1,7 +1,9 @@
 from flask_wtf import FlaskForm as Form 
 from models import User
+from models import Neighbor
+from models import Post
 
-from wtforms import StringField, PasswordField, TextAreaField
+from wtforms import StringField, PasswordField, TextAreaField, TextField, SubmitField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
 
 def name_exists(form, field):
@@ -54,4 +56,7 @@ class SignInForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class PostForm(Form):
-    content = TextAreaField("Enter Post here", validators=[DataRequired()])
+    user = TextField("By:")
+    title = TextField("Title")
+    text = TextAreaField("Content")
+    submit = SubmitField('Create Post')
