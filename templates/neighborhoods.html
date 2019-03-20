@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Neighborhoods</h1>
+{% for neighborhood in neighborhoods %}
+<article class="message is-dark">
+    <div class="message-header">
+        <a>{{neighborhood.neighbname}}</a>
+    </div>
+    <div class="message-body">
+        {{neighborhood.city}}
+    </div>
+</article>
+{% endfor %}
+{% endblock %}
+
+
