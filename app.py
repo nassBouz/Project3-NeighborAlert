@@ -59,11 +59,6 @@ def index():
 
     return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
-
-#  with open('neighborhoods.json') as json_data:
-#         neighborhoods = json.load(json_data)
-#         return render_template('neighborhoods.html',neighborhoods=neighborhoods)
-
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
     form = forms.SignUpForm()
