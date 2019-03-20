@@ -51,41 +51,28 @@ def handle_signup(form):
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
-<<<<<<< HEAD
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
 
     if sign_up_form.validate_on_submit():
         handle_signup(sign_up_form)
 
-    return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
-=======
-    with open('neighborhoods.json') as json_data:
-        neighborhoods = json.load(json_data)
-        return render_template('neighborhoods.html',neighborhoods=neighborhoods)
+    return render_template(['auth.html','neightborhoods.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
+# @app.route('/signup', methods=('GET', 'POST'))
+# def signup():
+#     form = forms.SignUpForm()
+#     if form.validate_on_submit():
+#         flash('Welcome new member!!!', 'success')
+#         models.User.create_user(
+#             username=form.username.data,
+#             email=form.email.data,
+#             password=form.password.data,
+#             fullname=form.fullname.data
+#             )
 
-#     @app.route('/')
-# def index():
-#     with open('subs.json') as json_data:
-#         subs = json.load(json_data)
-#         return render_template('subs.html', subs=subs)
->>>>>>> 3c487128fd178d9ba7ff16e40c1a24f209e11f20
-
-@app.route('/signup', methods=('GET', 'POST'))
-def signup():
-    form = forms.SignUpForm()
-    if form.validate_on_submit():
-        flash('Welcome new member!!!', 'success')
-        models.User.create_user(
-            username=form.username.data,
-            email=form.email.data,
-            password=form.password.data,
-            fullname=form.fullname.data
-            )
-
-        return redirect(url_for('index'))
-    return render_template('signup.html', form=form)
+#         return redirect(url_for('index'))
+#     return render_template('signup.html', form=form)
 
 @app.route('/signin', methods=('GET', 'POST'))
 def signin():
