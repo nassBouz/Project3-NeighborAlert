@@ -17,7 +17,7 @@ app.secret_key= 'NeighborAlertsecretword'
 login_manager = LoginManager()
 ##sets up our login for the app
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = '/'
 
 @login_manager.user_loader
 def load_user(userid):
@@ -63,51 +63,65 @@ def handle_signin(form):
         else:
             flash("your email or password doesn't match", "error")
 
+# @login_required
+# def handle_logout():
+#     logout_user()
+#     flash("You've been logged out", "success")
+#     return redirect(url_for('index'))
+
 @app.route('/', methods=('GET', 'POST'))
 def index():
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
+    logout_user()
 
     if sign_up_form.validate_on_submit():
         handle_signup(sign_up_form)
 
-    if sign_in_form.validate_on_submit():
+    elif sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
+
+
+    # else:
+    #     print('####################BEFPRE ARe you hitting in handle logout here?')
+    #     handle_logout()
+    #     print('###################AFTER ARe you hitting in handle logout here?')
+
 
     return render_template('auth.html', sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
-@app.route('/signup', methods=('GET', 'POST'))
-def signup():
-    form = forms.SignUpForm()
-    if form.validate_on_submit():
-        flash('Welcome new member!!!', 'success')
-        models.User.create_user(
-            username=form.username.data,
-            email=form.email.data,
-            password=form.password.data,
-            fullname=form.fullname.data
-            )
+# @app.route('/signup', methods=('GET', 'POST'))
+# def signup():
+#     form = forms.SignUpForm()
+#     if form.validate_on_submit():
+#         flash('Welcome new member!!!', 'success')
+#         models.User.create_user(
+#             username=form.username.data,
+#             email=form.email.data,
+#             password=form.password.data,
+#             fullname=form.fullname.data
+#             )
 
-        return redirect(url_for('index'))
-    return render_template('signup.html', form=form)
+#         return redirect(url_for('index'))
+#     return render_template('signup.html', form=form)
 
-@app.route('/signin', methods=('GET', 'POST'))
-def signin():
-    form = forms.SignInForm()
-    if form.validate_on_submit():
-        try:
-            user = models.User.get(models.User.email == form.email.data)
-        except models.DoesNotExist:
-            flash("your email or password doesn't match", "error")
-        else:
-            if check_password_hash(user.password, form.password.data):
-                ## creates session
-                login_user(user)
-                flash("You've been logged in", "success")
-                return redirect(url_for('index'))
-            else:
-                flash("your email or password doesn't match", "error")
-    return render_template('signin.html', form=form)
+# @app.route('/signin', methods=('GET', 'POST'))
+# def signin():
+#     form = forms.SignInForm()
+#     if form.validate_on_submit():
+#         try:
+#             user = models.User.get(models.User.email == form.email.data)
+#         except models.DoesNotExist:
+#             flash("your email or password doesn't match", "error")
+#         else:
+#             if check_password_hash(user.password, form.password.data):
+#                 ## creates session
+#                 login_user(user)
+#                 flash("You've been logged in", "success")
+#                 return redirect(url_for('index'))
+#             else:
+#                 flash("your email or password doesn't match", "error")
+#     return render_template('signin.html', form=form)
 
 @app.route('/logout')
 @login_required

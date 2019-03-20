@@ -21,6 +21,11 @@
         </div>
         <nav id="navButtons">
             <!-- Button trigger modal -->
+            {% if current_user.is_authenticated %}
+                <!-- signout button -->
+                <a href="{{url_for("logout")}}"> <button class="btn btn-dark">Sign Out</button></a>
+
+            {% else %}
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Sign In</button>
                 <!-- Modal -->
                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -66,6 +71,7 @@
                     </div>
                     </div>
                 </div>
+            {% endif %}
         </nav>
     </header>
     <br>
