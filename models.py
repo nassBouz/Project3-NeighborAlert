@@ -17,7 +17,7 @@ class Neighbor(Model):
 
     @classmethod
     def get_neighbor(self):
-        return Neighbor.select().where(Neighbor.neighbname == self)
+        return Neighbor.select().where(Neighbor.neighname == self)
 
 
 class User(UserMixin, Model):
