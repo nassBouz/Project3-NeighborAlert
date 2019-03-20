@@ -39,15 +39,30 @@ def after_request(response):
     return response
 
 
-@app.route('/')
+def handle_signup(form):
+    flash('Welcome new member!!!', 'success')
+    models.User.create_user(
+        username=form.username.data,
+        email=form.email.data,
+        password=form.password.data,
+        fullname=form.fullname.data)
+    return redirect(url_for('index'))
+
+@app.route('/', methods=('GET', 'POST'))
 def index():
-    return render_template('layout.html')
+    sign_up_form = forms.SignUpForm()
+    sign_in_form = forms.SignInForm()
+
+    if sign_up_form.validate_on_submit():
+        handle_signup(sign_up_form)
+
+    return render_template(['signin.html', 'signup.html'], sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 @app.route('/signup', methods=('GET', 'POST'))
 def signup():
     form = forms.SignUpForm()
     if form.validate_on_submit():
-        flash('Yay you registered', 'success')
+        flash('Welcome new member!!!', 'success')
         models.User.create_user(
             username=form.username.data,
             email=form.email.data,
@@ -56,11 +71,11 @@ def signup():
             )
 
         return redirect(url_for('index'))
-    return render_template('register.html', form=form)
+    return render_template('signup.html', form=form)
 
 @app.route('/signin', methods=('GET', 'POST'))
 def signin():
-    form = forms.LoginForm()
+    form = forms.SignInForm()
     if form.validate_on_submit():
         try:
             user = models.User.get(models.User.email == form.email.data)
@@ -74,8 +89,54 @@ def signin():
                 return redirect(url_for('index'))
             else:
                 flash("your email or password doesn't match", "error")
-    return render_template('login.html', form=form)
+    return render_template('signin.html', form=form)
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("You've been logged out", "success")
+    return redirect(url_for('index'))
+
+@app.route('/new_post', methods=('GET', 'POST'))
+@login_required
+def post():
+    form = forms.PostForm()
+    if form.validate_on_submit():
+        models.Post.create(user=g.user._get_current_object(),
+                           content=form.content.data.strip())
+        flash("Message posted! Thanks!", "success")
+        return redirect(url_for('index'))
+    return render_template('posts.html', form=form)
+
+@app.route('/stream')
+@app.route('/stream/<username>')
+@login_required
+def stream(username=None):
+    template = 'stream.html'
+    if current_user:
+        if username and username != current_user.username:
+            user = models.User.select().where(models.User.username == username).get()
+            stream = user.posts.limit(100)
+        else:
+            stream = current_user.get_stream().limit(100)
+            user = current_user
+
+        if username:
+            template = 'user_profile.html'
+        return render_template(template, stream=stream, user=user)
 
 
 if __name__ == '__main__':
+    models.initialize()
+    # try:
+    #     models.User.create_user(
+    #         username='jimbo',
+    #         email="jim@jim.com",
+    #         password='password',
+    #         admin=True
+    #         )
+    # except ValueError:
+    #     pass
+
     app.run(debug=DEBUG, port=PORT)

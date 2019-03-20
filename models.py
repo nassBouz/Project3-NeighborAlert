@@ -11,12 +11,12 @@ class Neighbor(Model):
     city = CharField()
     state = CharField()
     coutry = CharField(default='USA')
-class Meta:
+    class Meta:
         database = DATABASE
 
-@classmethod
-def get_neighbor(cls,neighname):
-    return Neighbor.select().where(Neighbor.neighname == self)
+    @classmethod
+    def get_neighbor(self):
+        return Neighbor.select().where(Neighbor.neighname == self)
 
 
 class User(UserMixin, Model):

@@ -1,12 +1,25 @@
 {% extends "layout.html" %}
 {% from 'macros.html' import render_field %}
 
-{% block content %}
+{% block signin %}
 <form method="POST" action="" class="form">
-    {{ form.hidden_tag() }}
-    {% for field in form %}
+    {{ sign_in_form.hidden_tag() }}
+
+    {% for field in sign_in_form %}
         {{ render_field(field) }}
     {% endfor %}
     <button type="submit" id="submit">Sign In!</button>
+</form>
+{% endblock %}
+
+{% block signup %}
+<form method="POST" action="" class="form">
+    {{ sign_up_form.hidden_tag() }}
+
+    {% for field in sign_up_form %}
+        {{render_field(field)}}
+
+    {% endfor %}
+    <button type="submit" id="submit">Register!</button>
 </form>
 {% endblock %}
