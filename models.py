@@ -88,7 +88,7 @@ class Post(Model):
     
     @classmethod
     # create a method to get all the comments for a post
-     def get_comments(self):
+    def get_comments(self):
         return Comment.select().where(Comment.post == self)
 
     # def get_stream(self):
@@ -116,7 +116,7 @@ class UserUpVote(Model):
         model=User,
         backref='userUpVotes'
     )
-    post = = ForeignKeyField(
+    post = ForeignKeyField(
         model=User,
         backref='userUpVotes'
     )
