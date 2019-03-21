@@ -9,10 +9,12 @@ $(document).ready(function () {
   });
 
   $( "#signin" ).click( function() {
+    // e.preventDefault();
     $( "#signin-form" ).toggle( 'slow' );
   });
 
   $( "#signup" ).click( function() {
+    // e.preventDefault();
     $( "#signup-form" ).toggle( 'slow' );
   });
 }); // end of (document).ready
