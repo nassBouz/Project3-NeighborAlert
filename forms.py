@@ -62,3 +62,7 @@ class PostForm(Form):
     imgUrl = StringField("Image")
     category = StringField("Category")
     submit = SubmitField('Create Post')
+
+class CommentForm(Form):
+    commentText = TextAreaField("Content")
+    submit = SubmitField('Create Comment')

@@ -2,21 +2,19 @@
 
 {% block content %}
 
-    
-
     <section>
             <h2>{{neighbor.neighbname}}</h2>
+            {% if current_user.is_authenticated %}
             <h2>Tell us about this neighborhood</h2>
             <form method="POST" action="" novalidate>
                 {{ form.hidden_tag() }}
-  
                 <div>
                 {{ form.title.label }}
-                {{ form.title() }}
+                {{ form.title(class_="input") }}
                 </div>
                 <div>
                 {{ form.text.label }}
-                {{ form.text() }}
+                {{ form.text(class_="textarea") }}
                 </div>
                 <div>
                 {{ form.address.label() }}
@@ -32,6 +30,7 @@
                 </div>
                 {{ form.submit() }}
             </form>
+            {% endif %}
 </section>
 
 {% block post_list %}

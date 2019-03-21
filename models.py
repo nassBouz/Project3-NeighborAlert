@@ -110,6 +110,14 @@ class Post(Model):
     def get_comments(self):
         return Comment.select().where(Comment.post == self)
 
+    @classmethod
+    def delete_post(cls, post_id):
+        post = Post.get(Post.id == post_id)
+        try:
+            post.delete()
+        except IntegrityError:
+            raise ValueError("No posts exist!!!")
+        return 
     # def get_stream(self):
     #     return Comment.select().where(
     #         (Comment.post == self)
@@ -138,5 +146,5 @@ class UserUpVote(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Post, Neighbor,UserUpVote], safe=True)
+    DATABASE.create_tables([User, Post, Neighbor,UserUpVote,Comment], safe=True)
     DATABASE.close()       

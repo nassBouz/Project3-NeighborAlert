@@ -75,9 +75,42 @@ footer{
 #anchor:hover{
     text-decoration: none;
 }
+/* ########### hamburger menu ######### */
 .hamburger-nav-bar {
     display: none;
 }
 .hamburger-menu-icon {
     display: none !important;
+}
+#signin-form, #signup-form {
+    display: none;
+}
+/* button {
+    margin-bottom: 10px;
+} */
+
+/* hamburger to show up in small screen */
+@media only screen and (max-width: 690px) {
+    .hamburger-menu-icon {
+      display: block !important;
+    }
+    #headwrap{
+      display: none !important;
+    }
+    #signin-form, #signup-form{
+      padding-left: 20px
+    }
+}
+
+@media only screen and (min-width: 690px) {
+    .hamburger-menu-icon {
+      display: none !important;
+    }
+    /* #headwrap{
+      display: none !important;
+    } */
+    /* #SignInModal{
+        display: block;
+    } */
+
 }
