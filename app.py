@@ -106,12 +106,12 @@ def profilepage(username):
     return render_template('user.html', user=user,posts=posts) 
 
 
-@app.route('/profile/<postid>')
-def propostid(postid):
+@app.route('/profile/<postid>/delete')
+def delete_post(postid):
     post = models.Post.get(models.Post.id == postid)
-    post.delete()
+    post.delete_instance()
 
-    return render_template('user.html', post=post)
+    return redirect(url_for('profilepage', username=g.user._get_current_object().username))
 
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
