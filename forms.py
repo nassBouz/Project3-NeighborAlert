@@ -56,7 +56,8 @@ class SignInForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class PostForm(Form):
-    user = TextField("By:")
     title = TextField("Title")
     text = TextAreaField("Content")
+    address=  TextField('Address')
+    imgUrl = StringField("Image")
     submit = SubmitField('Create Post')

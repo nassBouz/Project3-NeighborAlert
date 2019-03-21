@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div>
+    <div>
+        <h1>Profile Page</h1>
+        <h1>{{ user.fullname }}</h1>
+        <h1>{{ user.username }}</h1>
+        <h1>{{ user.email }}</h1>
+        <h1>{{ user.joined_at }}</h1>
+    </div>
+    <div>
+        <div>
+            <h5>Posts</h5>
+            <!-- <p>{{ user.posts.count() }}</p> -->
+        </div>
+    </div>
+</div>
+
+<!-- {{ super() }} -->
+{% endblock %}

@@ -6,7 +6,15 @@ header{
     background-color: #16FDFF;
 }
 
-nav{
+.wrap{
+    display: flex;
+    flex-direction: row;
+}
+
+.wrap h3{
+    margin:10px;
+    margin-top:15px;
+    font-size: 25px;
 }
 
 #logo{
@@ -18,17 +26,6 @@ nav{
     display: flex;
     justify-content: space-between;
 }  
-
-#logoWrap{
-    display:flex;
-    flex-direction: row;
-}
-
-#logoWrap h3{
-    margin:10px;
-    margin-top:15px;
-    font-size: 25px;
-}
 
 #navButtons button{
     margin:10px;
@@ -52,6 +49,29 @@ nav{
 }
 
 #aboutWrap p{
+    margin:20px;
     width:600px;
 }
 
+.modal {
+    text-align: center;
+}
+
+#modal-header{
+    background-color: #16FDFF;
+}
+
+footer{
+    position: relative;
+    background-color: #16FDFF;
+    text-align: center;
+    padding: 10px;
+}
+
+#anchor{
+    color:black;
+}
+
+#anchor:hover{
+    text-decoration: none;
+}

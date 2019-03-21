@@ -76,7 +76,7 @@ def index():
     elif sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
 
-    return render_template('auth.html', neighborhoods=neighborhoods,sign_up_form=sign_up_form, sign_in_form=sign_in_form)
+    return render_template('auth.html', neighborhoods=neighborhoods, sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 
 @app.route('/<neighborid>', methods=['GET'])
@@ -85,48 +85,13 @@ def neighborpage(neighborid):
     posts = models.Post.get(models.Post.neighbor==int(neighborid))
 
     return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts) 
+
+@app.route('/profile/<username>', methods=['GET'])
+def profilepage(username):
+    user = models.User.get(models.User.username == username)
+    return render_template('user.html', user=user) 
+
     
-    # neighbor=None
-    # if neighbor == None:
-    #     neighbors = models.Neighbor.select().limit(100) # now I am looking into Sub Model
-    #     return render_template("neighbor.html", neighbors=neighbors) 
-    # else:
-    #     neighbor_id = int(neighbor)
-    #     neighbor_model = models.Neighbor.get_by_id(neighbor_id) 
-    # return render_template('neighborpage.html')
-
-# @app.route('/signup', methods=('GET', 'POST'))
-# def signup():
-#     form = forms.SignUpForm()
-#     if form.validate_on_submit():
-#         flash('Welcome new member!!!', 'success')
-#         models.User.create_user(
-#             username=form.username.data,
-#             email=form.email.data,
-#             password=form.password.data,
-#             fullname=form.fullname.data
-#             )
-
-#         return redirect(url_for('index'))
-#     return render_template('signup.html', form=form)
-
-# @app.route('/signin', methods=('GET', 'POST'))
-# def signin():
-#     form = forms.SignInForm()
-#     if form.validate_on_submit():
-#         try:
-#             user = models.User.get(models.User.email == form.email.data)
-#         except models.DoesNotExist:
-#             flash("your email or password doesn't match", "error")
-#         else:
-#             if check_password_hash(user.password, form.password.data):
-#                 ## creates session
-#                 login_user(user)
-#                 flash("You've been logged in", "success")
-#                 return redirect(url_for('index'))
-#             else:
-#                 flash("your email or password doesn't match", "error")
-#     return render_template('signin.html', form=form)
 
 @app.route('/logout')
 @login_required
@@ -145,24 +110,6 @@ def new_post():
         flash("Message posted! Thanks!", "success")
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
-
-@app.route('/stream')
-@app.route('/stream/<username>')
-@login_required
-def stream(username=None):
-    template = 'stream.html'
-    if current_user:
-        if username and username != current_user.username:
-            user = models.User.select().where(models.User.username == username).get()
-            stream = user.posts.limit(100)
-        else:
-            stream = current_user.get_stream().limit(100)
-            user = current_user
-
-        if username:
-            template = 'user_profile.html'
-        return render_template(template, stream=stream, user=user)
-
 
 if __name__ == '__main__':
     models.initialize()
