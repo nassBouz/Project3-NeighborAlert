@@ -82,28 +82,51 @@ def index():
 @app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
     neighbor_model = models.Neighbor.get_by_id(int(neighborid))
-    posts = models.Post.get(models.Post.neighbor==int(neighborid))
-    
+    posts = models.Post.select().where(models.Post.neighbor_id==int(neighborid))
+
     form = forms.PostForm()
     if form.validate_on_submit():
         models.Post.create(
             user=g.user._get_current_object(),
-            title=form.title(), 
-            text=form.text(),
-            address=form.address(),
-            imgUrl=form.imgUrl(),
-            category=form.category(),
+            title=form.title.data, 
+            text=form.text.data,
+            address=form.address.data,
+            imgUrl=form.imgUrl.data,
+            category=form.category.data,
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
-    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts, form=form) 
+    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
     user = models.User.get(models.User.username == username)
     return render_template('user.html', user=user) 
 
-    
+@app.route('/posts')
+@app.route('/posts/<id>', methods =['GET','POST'])
+def posts(id=None):
+      if id == None:
+        posts = models.Post.select().limit(100)
+        return render_template('posts.html', posts=posts)
+      else:
+        post_id = int(id)
+        post = models.Post.get(models.Post.id == post_id)
+        comments = post.comments
+
+        form = CommentForm()
+        if form.validate_on_submit():
+            models.Comment.create(
+                user= form.user.data.strip(),
+                text= form.text.data.strip(),
+                post=post
+            )
+
+            return redirect("/posts/{}".format(post_id))
+
+
+        return render_template('post.html', post=post, form=form, comments=comments)
+
 
 @app.route('/logout')
 @login_required
@@ -116,9 +139,10 @@ def logout():
 @login_required
 def new_post():
     form = forms.PostForm()
+    
     if form.validate_on_submit():
-        models.Post.create(user=g.user._get_current_object(),
-                           content=form.content.data.strip())
+        models.Post.create(user=g.user._get_current_object(), neighbor=g.neighbor.__get_current_object(),
+                           text=form.content.data.strip())
         flash("Message posted! Thanks!", "success")
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
