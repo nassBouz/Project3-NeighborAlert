@@ -69,57 +69,7 @@
             {% endif %}
         </nav> <!-- end of regular nav bar -->
 
-        <!-- hamburger menu as a default hidden-->
-        <i class="fas fa-bars hamburger-menu-icon"></i>
-        <nav id="navButtons">
-            <!-- Button trigger modal -->
-            {% if current_user.is_authenticated %}
-                <h3>Hello</h3>
-                <!-- signout button -->
-                <a href="{{url_for("logout")}}"> <button class="btn btn-dark">Sign Out</button></a>
-
-            {% else %}
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Sign In</button>
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Welcome back! Sign In</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            {% block signin %}
-                            {% endblock %}
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            <!-- Button trigger modal -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#SignUpModal">Sign Up!!!</button>
-                <!-- Modal -->
-                <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="SignUpModalTitle">Sign Up Today!!!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            {% block signup %}
-                            {% endblock %}
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            {% endif %}
-        </nav> <!-- end of regular nav bar -->
-
-
+        
     </header>
     <br>
     {% if not current_user.is_authenticated %}
