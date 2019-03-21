@@ -82,21 +82,21 @@ def index():
 @app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
     neighbor_model = models.Neighbor.get_by_id(int(neighborid))
-    posts = models.Post.get(models.Post.neighbor==int(neighborid))
-    
+    posts = models.Post.select().where(models.Post.neighbor_id==int(neighborid))
+
     form = forms.PostForm()
     if form.validate_on_submit():
         models.Post.create(
             user=g.user._get_current_object(),
-            title=form.title(), 
-            text=form.text(),
-            address=form.address(),
-            imgUrl=form.imgUrl(),
-            category=form.category(),
+            title=form.title.data, 
+            text=form.text.data,
+            address=form.address.data,
+            imgUrl=form.imgUrl.data,
+            category=form.category.data,
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
-    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts, form=form) 
+    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):

@@ -1,0 +1,23 @@
+{% extends "neighborpage.html" %}
+
+{% block post_list %}
+
+
+
+    {% if posts %}
+    <h1>Post List</h1>
+    
+    {% for post in posts %}
+    <article class="message is-primary">
+        <div class="message-header">
+                {{post.title}} <p> By: {{post.user.username}}</p>
+                
+        </div>
+        <div class="message-body">
+            {{post.text}}
+        </div>
+    </article>
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}
