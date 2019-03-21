@@ -55,3 +55,9 @@ nav{
     width:600px;
 }
 
+.hamburger-nav-bar {
+    display: none;
+}
+.hamburger-menu-icon {
+    display: none !important;
+}
