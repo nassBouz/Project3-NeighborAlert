@@ -1,18 +1,23 @@
-{% extends "layout.html" %}
+{% extends "neighborpage.html" %}
 
-{% block content %}
-<h1>Posts</h1>
-{% for post in posts %}
-<article class="message is-primary">
-    <div class="message-header">
-        <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
+{% block post_list %}
 
-        <p>By: {{post.user}}</p>
-    </div>
-    <div class="message-body">
-        {{post.text}}
-    </div>
-    <a>{{post.neighbor}}</a>
-</article>
-{% endfor %}
+
+
+    {% if posts %}
+    <h1>Post List</h1>
+    
+    {% for post in posts %}
+    <article class="message is-primary">
+        <div class="message-header">
+                {{post.title}} <p> By: {{post.user.username}}</p>
+                
+        </div>
+        <div class="message-body">
+            {{post.text}}
+        </div>
+    </article>
+    {% endfor %}
+    {% endif %}
+
 {% endblock %}

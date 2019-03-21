@@ -1,8 +1,11 @@
 {% extends "layout.html" %}
+
 {% block content %}
 
-<section>
-    <h1>{{neighbor.neighbname}}</h1>
+    
+
+    <section>
+            <h2>{{neighbor.neighbname}}</h2>
             <h2>Tell us about this neighborhood</h2>
             <form method="POST" action="" novalidate>
                 {{ form.hidden_tag() }}
@@ -29,5 +32,8 @@
                 {{ form.submit() }}
             </form>
 </section>
+
+{% block post_list %}
+{% endblock %}
 
 {% endblock %}

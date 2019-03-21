@@ -82,8 +82,8 @@ def index():
 @app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
     neighbor_model = models.Neighbor.get_by_id(int(neighborid))
-    posts = models.Post.get(models.Post.neighbor==int(neighborid))
-    
+    posts = models.Post.select().where(models.Post.neighbor_id==int(neighborid))
+
     form = forms.PostForm()
     if form.validate_on_submit():
         models.Post.create(
@@ -96,7 +96,7 @@ def neighborpage(neighborid):
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
-    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts, form=form) 
+    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
@@ -139,9 +139,10 @@ def logout():
 @login_required
 def new_post():
     form = forms.PostForm()
+    
     if form.validate_on_submit():
-        models.Post.create(user=g.user._get_current_object(),
-                           content=form.content.data.strip())
+        models.Post.create(user=g.user._get_current_object(), neighbor=g.neighbor.__get_current_object(),
+                           text=form.content.data.strip())
         flash("Message posted! Thanks!", "success")
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
