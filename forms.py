@@ -54,4 +54,8 @@ class SignInForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class PostForm(Form):
-    content = TextAreaField("Enter Post here", validators=[DataRequired()])
+    text = TextAreaField("Enter Post here", validators=[DataRequired()])
+    # address = TextField("Enter address here here")
+    # imgUrl = CharField("upload your image")
+    # category = CharField("What is your post about")
+    # priority = IntegerField()
