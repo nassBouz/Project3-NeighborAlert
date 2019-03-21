@@ -1,0 +1,17 @@
+{% extends "posts.html" %}
+
+{% block comment_list %}
+
+    {% if comments %}
+    <h1>Comments List</h1>
+    
+    {% for comment in comments %}
+    <article class="message is-primary">
+        <div class="message-header">
+                {{comment.commentText}} <p> By: {{comment.user.username}}</p>
+        </div>
+    </article>
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}
