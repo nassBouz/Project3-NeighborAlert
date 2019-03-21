@@ -25,7 +25,7 @@
         <div class="message-body">
             {{post.text}}
         </div>
-        <a href={{url_for('propostid', postid=post.id)}}><button class="btn btn-dark">Delete</button></a>
+        <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-dark">Delete</button></a>
 
         <button class="btn btn-dark">Edit</button>
         
