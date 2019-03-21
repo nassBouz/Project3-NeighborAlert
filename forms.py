@@ -3,7 +3,7 @@ from models import User
 from models import Neighbor
 from models import Post
 
-from wtforms import StringField, PasswordField, TextAreaField, TextField, SubmitField
+from wtforms import StringField, PasswordField, TextAreaField, TextField, SubmitField, IntegerField
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
 
 def name_exists(form, field):
@@ -56,8 +56,9 @@ class SignInForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class PostForm(Form):
-    user = TextField("By:")
     title = TextField("Title")
     text = TextAreaField("Content")
+    address=  TextField('Address')
+    imgUrl = StringField("Image")
+    category = StringField("Category")
     submit = SubmitField('Create Post')
-

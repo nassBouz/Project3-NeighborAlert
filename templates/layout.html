@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/png" href="https://cdn.glitch.com/cb093bfd-142f-45b3-bdb4-52ff49e0a1c2%2Fhomefavicon.png?1553147041446"/>
     <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -14,26 +16,27 @@
 </head>
 <body>
     <header id="headwrap">
-        <div id="logoWrap">
+        <div class="wrap">
             <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
-            <h3>NeighborAlert</h3>
+            <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
             <h3>Welcome</h3>
         </div>
         <nav id="navButtons">
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
-                <h3>Hello</h3>
-                <!-- signout button -->
-                <a href="{{url_for("logout")}}"> <button class="btn btn-dark">Sign Out</button></a>
-
+                <div class="wrap">
+                    <a id="anchor" href={{url_for('profilepage', username=current_user.username)}}><h3>Hello {{current_user.username}}</h3></a>
+                    <!-- signout button -->
+                    <a href="{{url_for('logout')}}"> <button class="btn btn-dark">Sign Out</button></a>
+                </div>
             {% else %}
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Sign In</button>
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#SignInModal">Sign In</button>
                 <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal fade" id="SignInModal" tabindex="-1" role="dialog" aria-labelledby="SignInModalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Welcome back! Sign In</h5>
+                        <div class="modal-header" id="modal-header">
+                        <h3 class="modal-title" id="SignInModalTitle">Welcome back! Sign In</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -41,10 +44,6 @@
                         <div class="modal-body">
                             {% block signin %}
                             {% endblock %}
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                     </div>
@@ -55,8 +54,8 @@
                 <div class="modal fade" id="SignUpModal" tabindex="-1" role="dialog" aria-labelledby="SignUpModalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="SignUpModalTitle">Sign Up Today!!!</h5>
+                        <div class="modal-header" id="modal-header">
+                        <h3 class="modal-title" id="SignUpModalTitle">Sign Up Today!!!</h3>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -65,15 +64,13 @@
                             {% block signup %}
                             {% endblock %}
                         </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
                     </div>
                     </div>
                 </div>
             {% endif %}
-        </nav>
+        </nav> <!-- end of regular nav bar -->
+
+        
     </header>
     <br>
     {% if not current_user.is_authenticated %}
@@ -104,13 +101,11 @@
         <p>Missed a fun event close to where you live? Need helping moving that couch up some stairs? Heard a car alarm go off last night? Find out about whats happening in your neighborhood! Use NeighborAlert to keep up with most current news and events in your area!</p>
     </section>
     {%endif%}
-    
+
     <section>
         {% block content%}
         {% endblock %}
     </section>
-    <footer>
-
-    </footer>
+    <footer>&copy;2019 Nassima, Heggy, Alom</footer>
 </body>
 </html>
