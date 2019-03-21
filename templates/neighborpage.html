@@ -1,6 +1,38 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>{{neighbor.neighbname}}</h1>
-    
 
+<section>
+    <h1>{{neighbor.neighbname}}</h1>
+            <h2>Tell us about this neighborhood</h2>
+            <form method="POST" action="" novalidate>
+                {{ form.hidden_tag() }}
+  
+                <div>
+                {{ form.title.label }}
+                {{ form.title() }}
+                </div>
+                <div>
+                {{ form.text.label }}
+                {{ form.text() }}
+                </div>
+                <div>
+                {{ form.address.label() }}
+                {{ form.address() }}
+                </div>
+                <div>
+                {{ form.imgUrl.label() }}
+                {{ form.imgUrl() }}
+                </div>
+                <div>
+                {{ form.category.label() }}
+                {{ form.category() }}
+                </div>
+                <div>
+                {{ form.priority.label() }}
+                {{ form.priority() }}
+                </div>
+
+                {{ form.submit() }}
+            </form>
+        </section>
 {% endblock %}

@@ -79,12 +79,25 @@ def index():
     return render_template('auth.html', neighborhoods=neighborhoods, sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 
-@app.route('/<neighborid>', methods=['GET'])
+@app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
     neighbor_model = models.Neighbor.get_by_id(int(neighborid))
     posts = models.Post.get(models.Post.neighbor==int(neighborid))
+    
+    form = forms.PostForm()
+    if form.validate_on_submit():
+        models.Post.create(
+            user=g.user._get_current_object(),
+            title=form.title(), 
+            text=form.text(),
+            address=form.address(),
+            imgUrl=form.imgUrl(),
+            category=form.category(),
+            priority= form.priority(),
+            neighbor=neighbor_model)
+        return redirect("/{}".format(neighborid))
 
-    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts) 
+    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts, form=form) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):

@@ -94,6 +94,7 @@ class Post(Model):
     # def get_category_label(self):
     #     return dict(self.CATEGORY_CHOICES)[self.category]
 
+    title = TextField()
     address = TextField()
     imgUrl = CharField()
     text = TextField()

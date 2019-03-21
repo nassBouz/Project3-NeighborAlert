@@ -53,7 +53,6 @@ header{
     width:600px;
 }
 
-<<<<<<< HEAD
 .modal {
     text-align: center;
 }
@@ -76,11 +75,9 @@ footer{
 #anchor:hover{
     text-decoration: none;
 }
-=======
 .hamburger-nav-bar {
     display: none;
 }
 .hamburger-menu-icon {
     display: none !important;
 }
->>>>>>> 31d291e2f9988a73ce0954493d7493fdce0d8e67
