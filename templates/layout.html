@@ -22,6 +22,7 @@
         <nav id="navButtons">
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
+                <h3>Hello</h3>
                 <!-- signout button -->
                 <a href="{{url_for("logout")}}"> <button class="btn btn-dark">Sign Out</button></a>
 
@@ -75,7 +76,7 @@
         </nav>
     </header>
     <br>
-
+    {% if not current_user.is_authenticated %}
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
@@ -102,6 +103,8 @@
         <h2>About</h2>
         <p>Missed a fun event close to where you live? Need helping moving that couch up some stairs? Heard a car alarm go off last night? Find out about whats happening in your neighborhood! Use NeighborAlert to keep up with most current news and events in your area!</p>
     </section>
+    {%endif%}
+    
     <section>
         {% block content%}
         {% endblock %}

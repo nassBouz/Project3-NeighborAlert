@@ -63,12 +63,6 @@ def handle_signin(form):
         else:
             flash("your email or password doesn't match", "error")
 
-# @login_required
-# def handle_logout():
-#     logout_user()
-#     flash("You've been logged out", "success")
-#     return redirect(url_for('index'))
-
 @app.route('/', methods=('GET', 'POST'))
 def index():
     neighborhoods = models.Neighbor.select()
@@ -85,12 +79,21 @@ def index():
     return render_template('auth.html', neighborhoods=neighborhoods,sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
 
-#  with open('neighborhoods.json') as json_data:
-#         neighborhoods = json.load(json_data)
-#         return render_template('neighborhoods.html',neighborhoods=neighborhoods)
-@app.route('/post')
-def post_page():
-    return redirect('post.html')
+@app.route('/<neighborid>', methods=['GET'])
+def neighborpage(neighborid):
+    neighbor_model = models.Neighbor.get_by_id(int(neighborid))
+    posts = models.Post.get(models.Post.neighbor==int(neighborid))
+
+    return render_template('neighborpage.html', neighbor=neighbor_model, posts=posts) 
+    
+    # neighbor=None
+    # if neighbor == None:
+    #     neighbors = models.Neighbor.select().limit(100) # now I am looking into Sub Model
+    #     return render_template("neighbor.html", neighbors=neighbors) 
+    # else:
+    #     neighbor_id = int(neighbor)
+    #     neighbor_model = models.Neighbor.get_by_id(neighbor_id) 
+    # return render_template('neighborpage.html')
 
 # @app.route('/signup', methods=('GET', 'POST'))
 # def signup():
@@ -134,7 +137,7 @@ def logout():
 
 @app.route('/new_post', methods=('GET', 'POST'))
 @login_required
-def post():
+def new_post():
     form = forms.PostForm()
     
     if form.validate_on_submit():

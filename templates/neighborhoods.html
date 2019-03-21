@@ -5,7 +5,7 @@
 {% for neighborhood in neighborhoods %}
 <article class="message is-dark">
     <div class="message-header">
-        <a href="{{url_for('post')}}">{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
+        <a href="{{url_for('neighborpage')}}">{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
     </div>
 </article>
 {% endfor %}
