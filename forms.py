@@ -61,5 +61,4 @@ class PostForm(Form):
     address=  TextField('Address')
     imgUrl = StringField("Image")
     category = StringField("Category")
-    priority = IntegerField("Priority")
     submit = SubmitField('Create Post')

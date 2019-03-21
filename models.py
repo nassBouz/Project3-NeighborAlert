@@ -99,7 +99,7 @@ class Post(Model):
     imgUrl = CharField()
     text = TextField()
     category = CharField()
-    priority = IntegerField()
+    # priority = IntegerField()
 
     class Meta:
         database = DATABASE

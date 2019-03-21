@@ -93,7 +93,6 @@ def neighborpage(neighborid):
             address=form.address(),
             imgUrl=form.imgUrl(),
             category=form.category(),
-            priority= form.priority(),
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
@@ -150,6 +149,12 @@ if __name__ == '__main__':
             city = 'San Francisco',
             state = 'California',
             country = 'USA'
+            )
+        models.User.create_user(
+            username='nass',
+            email="nasm@ga.com",
+            password='123',
+            fullname= 'Nass Bou'
             )
     except ValueError:
         pass
