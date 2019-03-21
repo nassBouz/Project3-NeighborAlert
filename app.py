@@ -101,9 +101,17 @@ def neighborpage(neighborid):
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
     user = models.User.get(models.User.username == username)
-    posts = models.Post.select().where(models.Post.user_id == username)
+    posts = current_user.get_posts()
 
     return render_template('user.html', user=user,posts=posts) 
+
+
+@app.route('/profile/<postid>')
+def propostid(postid):
+    post = models.Post.get(models.Post.id == postid)
+    post.delete()
+
+    return render_template('user.html', post=post)
 
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])

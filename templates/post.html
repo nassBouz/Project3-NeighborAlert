@@ -11,7 +11,6 @@
     <div class="message-body">
         {{post.text}}
     </div>
-    <a>r/{{post.sub}}</a>
 </article>
 
 {% if comments %}
@@ -19,14 +18,12 @@
     {% for comment in comments %}
     <article class="message is-primary">
         <div class="message-header">
-            <!-- <a href={{url_for('comments', id=comment.id)}}></a> -->
-
             <p>By: {{comment.user.username}}</p>
         </div>
         <div class="message-body">
             {{comment.commentText}}
         </div>
-        <!-- <a>r/{{post.sub}}</a> -->
+        <br>
     </article>
     {% endfor %}
 {% endif %}
