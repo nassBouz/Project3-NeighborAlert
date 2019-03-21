@@ -7,4 +7,12 @@ $(document).ready(function () {
     $(".nav-wrapper-flex").toggle();
     $(".hamburger-nav-bar").toggle();
   });
+
+  $( "#signin" ).click( function() {
+    $( "#signin-form" ).toggle( 'slow' );
+  });
+
+  $( "#signup" ).click( function() {
+    $( "#signup-form" ).toggle( 'slow' );
+  });
 }); // end of (document).ready

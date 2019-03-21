@@ -23,6 +23,8 @@
     <title>NeighborAlert</title>
 </head>
 <body>
+
+<!--###############  Begin of Nav bar regular ########### -->
     <header id="headwrap">
         <div class="wrap">
             <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
@@ -76,10 +78,48 @@
                     </div>
                 </div>
             {% endif %}
-        </nav> <!-- end of regular nav bar -->
+        </nav> 
+    </header> <!-- ######### end of regular nav bar ########## -->
 
-        
-    </header>
+<!-- ############# Begin of hamburger menu div and icon ############## -->
+    <i class="fas fa-bars hamburger-menu-icon"></i>
+    <div class="hamburger-nav-bar">
+        <header>
+            <div class="wrap">
+                <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
+                <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
+                <h3>Welcome</h3>
+            </div>
+            <nav id="navButtons">
+                <!-- Button trigger modal -->
+                {% if current_user.is_authenticated %}
+                    <div class="wrap">
+                        <a id="anchor" href={{url_for('profilepage', username=current_user.username)}}><h3>Hello {{current_user.username}}</h3></a>
+                        <!-- signout button -->
+                        <a href="{{url_for('logout')}}"> <button class="btn btn-dark">Sign Out</button></a>
+                    </div>
+                {% else %}
+                    <div id="signin">
+                        <button type="button" class="btn btn-dark">Sign In</button>
+                        <div id="signin-form">
+                            <h3>Welcome back, {{current_user.fullname}}!</h3> 
+                            {{ self.signin() }}
+                        </div>
+                    </div> <!-- hamburger SIGNIN button -->
+
+                    <div id="signup">
+                        <button type="button" class="btn btn-dark">Sign Up!!!</button>
+                        <div id="signup-form">
+                            <h3>Sign Up Today!!!</h3>
+                            {{ self.signup() }}
+                        </div>
+                    </div> <!-- hamburger SIGNUP button -->
+                {% endif %}
+            </nav> 
+        </header>
+    </div> <!-- this is end of div for hamburger nav -->
+<!-- ######### end of hamburger nav div ##### -->
+
     <br>
     {% if not current_user.is_authenticated %}
     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
