@@ -10,7 +10,8 @@
     {% for post in posts %}
     <article class="message is-primary">
         <div class="message-header">
-                {{post.title}} <p> By: {{post.user.username}}</p>
+            <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
+            <p> By: {{post.user.username}}</p>
                 
         </div>
         <div class="message-body">

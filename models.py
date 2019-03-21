@@ -138,5 +138,5 @@ class UserUpVote(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User, Post, Neighbor,UserUpVote], safe=True)
+    DATABASE.create_tables([User, Post, Neighbor,UserUpVote,Comment], safe=True)
     DATABASE.close()       

@@ -101,7 +101,9 @@ def neighborpage(neighborid):
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
     user = models.User.get(models.User.username == username)
-    return render_template('user.html', user=user) 
+    posts = models.Post.select().where(models.Post.user_id == username)
+
+    return render_template('user.html', user=user,posts=posts) 
 
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
@@ -114,11 +116,11 @@ def posts(id=None):
         post = models.Post.get(models.Post.id == post_id)
         comments = post.comments
 
-        form = CommentForm()
+        form = forms.CommentForm()
         if form.validate_on_submit():
             models.Comment.create(
-                user= form.user.data.strip(),
-                text= form.text.data.strip(),
+                user=g.user._get_current_object(),
+                commentText= form.commentText.data,
                 post=post
             )
 
@@ -126,6 +128,19 @@ def posts(id=None):
 
 
         return render_template('post.html', post=post, form=form, comments=comments)
+
+@app.route('/comment')
+@app.route('/comment/<id>', methods=['GET','POST'])
+def comments(id=None):
+      if id == None:
+        comments = models.Comment.select().limit(100)
+        return render_template('comments.html', comments=comments)
+      else:
+        comment_id = int(id)
+        comment = models.Comment.get(models.Comment.id == comment_id)
+
+        return render_template('comment.html', comment=comment)
+
 
 
 @app.route('/logout')

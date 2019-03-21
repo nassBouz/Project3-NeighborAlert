@@ -6,7 +6,7 @@
     <div class="message-header">
         <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
 
-        <p>By: {{post.user}}</p>
+        <p>By: {{post.user.username}}</p>
     </div>
     <div class="message-body">
         {{post.text}}
@@ -21,10 +21,10 @@
         <div class="message-header">
             <!-- <a href={{url_for('comments', id=comment.id)}}></a> -->
 
-            <p>By: {{comment.user}}</p>
+            <p>By: {{comment.user.username}}</p>
         </div>
         <div class="message-body">
-            {{comment.text}}
+            {{comment.commentText}}
         </div>
         <!-- <a>r/{{post.sub}}</a> -->
     </article>
@@ -37,13 +37,9 @@
         {{form.hidden_tag()}}
     
         <div class="field">
-                {{ form.text.label }}
-                {{ form.text() }}
-            </div>
-            <div class="field">
-                {{ form.user.label("Comment By:") }}
-                {{ form.user() }}
-            </div>
+                {{ form.commentText.label }}
+                {{ form.commentText() }}
+        </div>
     
             {{ form.submit()}}
 
