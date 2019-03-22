@@ -1,7 +1,31 @@
 {% extends "layout.html" %}
 
-{% block content %}
+{% from 'macros.html' import render_field %}
 
+{% block signin %}
+<form method="POST" action="" class="form">
+    {{ sign_in_form.hidden_tag() }}
+
+    {% for field in sign_in_form %}
+        {{ render_field(field) }}
+    {% endfor %}
+    <button type="submit" class="btn btn-dark" id="submit">Sign In!</button>
+</form>
+{% endblock %}
+
+{% block signup %}
+<form method="POST" action="" class="form">
+    {{ sign_up_form.hidden_tag() }}
+
+    {% for field in sign_up_form %}
+        {{render_field(field)}}
+
+    {% endfor %}
+    <button type="submit" class="btn btn-dark" id="submit">Register!</button>
+</form>
+{% endblock %}
+
+{% block content %}
 <h3>{{post.title}}</h3>
 <div id="postWrap">
     <div>
@@ -36,16 +60,19 @@
     </div>
 {% endif %}
 
-<section>
-    <h6>Say something</h6>
-    <form method="POST" novalidate>
-        {{form.hidden_tag()}}
-        <div>
+{% if current_user.is_authenticated %}
+    <section>
+        <h6>Say something</h6>
+        <form method="POST" novalidate>
+            {{form.hidden_tag()}}
             <div>
-                {{ form.commentText() }}
+                <div>
+                    {{ form.commentText() }}
+                </div>
             </div>
-        </div>
-        <button type=submit class="btn btn-primary">Comment</button>
-    </form>
-</section>
+            <button type=submit class="btn btn-primary">Comment</button>
+        </form>
+    </section>
+{% endif %}
+
 {% endblock %}

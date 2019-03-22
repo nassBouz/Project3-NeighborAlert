@@ -106,8 +106,17 @@ def index():
 
 @app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
+    sign_in_form = forms.SignInForm()
+    sign_up_form = forms.SignUpForm()
     neighbor_model = models.Neighbor.get_by_id(int(neighborid))
     posts = models.Post.select().where(models.Post.neighbor_id==int(neighborid))
+
+    if sign_up_form.validate_on_submit():
+        handle_signup(sign_up_form)
+
+    elif sign_in_form.validate_on_submit():
+        handle_signin(sign_in_form)
+
 
     form = forms.PostForm()
     if form.validate_on_submit():
@@ -121,7 +130,7 @@ def neighborpage(neighborid):
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
-    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form, post={"title":"","text":"","address":"","imgUrl":"","category":""}) 
+    return render_template('posts.html', neighbor=neighbor_model, sign_in_form=sign_in_form, sign_up_form=sign_up_form, posts=posts, form=form, post={"title":"","text":"","address":"","imgUrl":"","category":""}) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
@@ -167,10 +176,20 @@ def edit_post(postid):
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
 def posts(id=None):
-      if id == None:
+    sign_up_form = forms.SignUpForm()
+    sign_in_form = forms.SignInForm()
+
+    if sign_up_form.validate_on_submit():
+        handle_signup(sign_up_form)
+
+    elif sign_in_form.validate_on_submit():
+        handle_signin(sign_in_form)
+
+
+    if id == None:
         posts = models.Post.select().limit(100)
         return render_template('posts.html', posts=posts)
-      else:
+    else:
         post_id = int(id)
         post = models.Post.get(models.Post.id == post_id)
         comments = post.comments
@@ -186,7 +205,7 @@ def posts(id=None):
             return redirect("/posts/{}".format(post_id))
 
 
-        return render_template('post.html', post=post, form=form, comments=comments)
+        return render_template('post.html', post=post, form=form, comments=comments, sign_in_form=sign_in_form, sign_up_form=sign_up_form)
 
 @app.route('/comment')
 @app.route('/comment/<id>', methods=['GET','POST'])
