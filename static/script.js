@@ -8,12 +8,12 @@ $(document).ready(function () {
     $(".hamburger-nav-bar").toggle();
   });
 
-  $( "#signin" ).click( function() {
+  $( "#signin button" ).click( function() {
     // e.preventDefault();
     $( "#signin-form" ).toggle( 'slow' );
   });
 
-  $( "#signup" ).click( function() {
+  $( "#signup button" ).click( function() {
     // e.preventDefault();
     $( "#signup-form" ).toggle( 'slow' );
   });
