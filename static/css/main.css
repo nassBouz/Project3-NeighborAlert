@@ -114,6 +114,8 @@ footer{
     background-color: #16FDFF30;
 }
 
+.
+
 .commentbox{
     background-color: #16FDFF30;
 }
@@ -136,7 +138,7 @@ textarea{
     width:600px;
 }
 
-input{
+.formbox input{
     border: 2px solid black;
     width:600px;
 }
