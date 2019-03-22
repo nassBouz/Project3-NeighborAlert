@@ -9,14 +9,14 @@ import forms
 import json
 # to upload photo
 from flask import send_from_directory
-
+from flask.ext.heroku import Heroku
 
 DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
 app.secret_key= 'NeighborAlertsecretword'
-
+heroku = Heroku(app)
 login_manager = LoginManager()
 ##sets up our login for the app
 login_manager.init_app(app)
