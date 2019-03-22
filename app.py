@@ -105,7 +105,7 @@ def profilepage(username):
 
     return render_template('user.html', user=user,posts=posts) 
 
-
+# name of the post sf= 1 whicb here is postid
 @app.route('/profile/<postid>/delete')
 # @login_required # todo: before submitting activate this to prevent users to delete w/o login
 def delete_post(postid):
@@ -114,17 +114,18 @@ def delete_post(postid):
 
     return redirect(url_for('profilepage', username=g.user._get_current_object().username))
 
-@app.route('/profile/<postid>/edit')
+
+# @app.route('/profile/<postid>/edit')
 # @login_required # todo: before submitting activate this to prevent users to delete w/o login
-def edit_post(postid):
-    post = models.Post.get(models.Post.id == postid)
+# def edit_post(postid):
+    # post = models.Post.get(models.Post.id == postid)
     # post.title = form.title.data, 
-    form = forms.PostForm()
-    if form.validate_on_submit():
-        post.save(
-            post.title = form.title.data, 
-            post.text = form.text.data, 
-            post.address = form.address.data
+    # form = forms.PostForm()
+    # if form.validate_on_submit():
+    #     post.save(
+    #         post.title = form.title.data, 
+    #         post.text = form.text.data, 
+    #         post.address = form.address.data
             # user=g.user._get_current_object(),
             # title=form.title.data, 
             # text=form.text.data,
@@ -132,12 +133,12 @@ def edit_post(postid):
             # imgUrl=form.imgUrl.data,
             # category=form.category.data,
             # neighbor=neighbor_model
-        )
+        # )
 
 # mdetails = MerchantDetails.select().where(MerchantDetails.id == 42).get()
 # mdetails.name = 'new name'
 # mdetails.save() # Will do the SQL update query.
-    return redirect(url_for('profilepage', username=g.user._get_current_object().username))
+    # return redirect(url_for('profilepage', username=g.user._get_current_object().username))
 
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
