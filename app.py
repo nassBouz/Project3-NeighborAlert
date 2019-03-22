@@ -9,14 +9,14 @@ import forms
 import json
 # to upload photo
 from flask import send_from_directory
-
+from flask.ext.heroku import Heroku
 
 DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
 app.secret_key= 'NeighborAlertsecretword'
-
+heroku = Heroku(app)
 login_manager = LoginManager()
 ##sets up our login for the app
 login_manager.init_app(app)
@@ -239,6 +239,11 @@ def new_post():
         flash("Message posted! Thanks!", "success")
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
+
+# This is checking to see if we are in the Heroku environment, if we are, build our tables. Note you can use this variable anywhere to check if you are on Heroku, you can figure out how to adapt your code to work locally and on heroku.
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 if __name__ == '__main__':
     models.initialize()
