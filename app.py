@@ -9,14 +9,14 @@ import forms
 import json
 # to upload photo
 from flask import send_from_directory
+from keyNeigh import keyNeigh
 
 
 DEBUG = True
 PORT = 8000
 
 app = Flask(__name__)
-app.secret_key= 'NeighborAlertsecretword'
-
+app.secret_key= keyNeigh
 login_manager = LoginManager()
 ##sets up our login for the app
 login_manager.init_app(app)
@@ -240,6 +240,34 @@ def new_post():
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
 
+@app.route('/like/<int:post_id>')
+@login_required
+def upvote(post_id):
+    userId = g.user._get_current_object()
+    posts = models.Post.select().where(models.Post.id == post_id)
+    if posts.count() == 0:
+        abort(404)
+
+
+
+    post = models.Post.select().where(models.Post.id == post_id).get()
+    if models.UserUpVote.select().where(models.UserUpVote.user_id == userId,models.UserUpVote.post_id == post_id).exists():
+        (models.UserUpVote.select().where(models.UserUpVote.user_id == userId,models.UserUpVote.post_id == post_id).get()).delete_instance()
+        count = models.UserUpVote.select().where(models.UserUpVote.post_id == post_id).count()
+        query = models.Post.update(priority = count).where(models.Post.id == post_id)
+        query.execute()
+        return redirect("/{}".format(post.neighbor_id))
+    else:
+        models.UserUpVote.create(user_id=userId, post_id = post_id)
+        flash("Your vote has been registered.","success")
+        count = models.UserUpVote.select().where(models.UserUpVote.post_id == post_id).count()
+        query = models.Post.update(priority = count).where(models.Post.id == post_id)
+        query.execute()
+        return redirect("/{}".format(post.neighbor_id))
+
+    return redirect("/{}".format(post.neighbor_id))
+
+
 if __name__ == '__main__':
     models.initialize()
     try:
@@ -247,31 +275,48 @@ if __name__ == '__main__':
             neighbname = 'FIDI',
             city = 'San Francisco',
             state = 'California',
-            country = 'USA'
+            country = 'USA',
+            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
             )
         models.Neighbor.create_neighborhood(
             neighbname = 'China Town',
             city = 'San Francisco',
             state = 'California',
-            country = 'USA'
+            country = 'USA',
+            imageNeighb ='https://media.timeout.com/images/102875459/630/472/image.jpg'
             )
         models.Neighbor.create_neighborhood(
             neighbname = 'North Beach',
             city = 'San Francisco',
             state = 'California',
-            country = 'USA'
+            country = 'USA',
+            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
             )
         models.Neighbor.create_neighborhood(
             neighbname = 'SoMa',
             city = 'San Francisco',
             state = 'California',
-            country = 'USA'
+            country = 'USA',
+            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
+
             )
         models.User.create_user(
             username='nass',
             email="nasm@ga.com",
             password='123',
-            fullname= 'Nass Bou'
+            fullname= 'Nassima Bouz',
+            )
+        models.User.create_user(
+            username='alom',
+            email="alom@ga.com",
+            password='123',
+            fullname= 'Alom Hossain'
+            )
+        models.User.create_user(
+            username='Huggy',
+            email="huggy@ga.com",
+            password='123',
+            fullname= 'Beautiful Huggy'
             )
     except ValueError:
         pass

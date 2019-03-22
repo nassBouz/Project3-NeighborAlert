@@ -27,11 +27,14 @@
 {% block content %}
 <h2>Find out whats going on in your Neighborhood!</h2>
 {% for neighborhood in neighborhoods %}
-<article class="message is-dark">
-    <div class="message-header">
-        <a href={{url_for('neighborpage', neighborid=neighborhood.id)}}>{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
-    </div>
-</article>
+    {%for i in range (0,1) %}
+        <article class="message is-dark">
+            <div id = 'neighbor_div' class="message-header"[i]>
+                <a href={{url_for('neighborpage', neighborid=neighborhood.id)}}>{{neighborhood.neighbname}},  {{neighborhood.city}}</a>
+                <img id = 'image_neighbor' src= {{neighborhood.imageNeighb}}/>
+            </div>
+        </article>
+    {%endfor%}
 {% endfor %}
 {% endblock %}
 

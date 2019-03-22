@@ -75,6 +75,22 @@ footer{
 #anchor:hover{
     text-decoration: none;
 }
+
+/* landing page images */
+#image_neighbor{
+    height: 100px;
+    width: 150px;
+}
+#neighbor_div{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+#neighbor_div a {
+    margin-top: 40px;
+}
 /* ########### hamburger menu ######### */
 .hamburger-nav-bar {
     display: none;
@@ -118,6 +134,7 @@ footer{
 
 .commentbox{
     background-color: #16FDFF30;
+    margin-top:10px;
 }
 
 #commentsSection{

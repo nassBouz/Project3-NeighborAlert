@@ -11,6 +11,7 @@ class Neighbor(Model):
     city = CharField()
     state = CharField()
     country = CharField(default='USA')
+    imageNeighb = CharField(default = 'https://baycityguide.com/media/00PU000000EkWTuMAN/Financial-District-from-Coit-Tower1500x872.jpg') 
 
     class Meta:
         database = DATABASE
@@ -24,13 +25,14 @@ class Neighbor(Model):
         return Neighbor.select().where(Neighbor.neighname == self)
 
     @classmethod
-    def create_neighborhood(cls, neighbname, city, state, country):
+    def create_neighborhood(cls, neighbname, city, state, country,imageNeighb):
         try:
             cls.create(
                 neighbname = neighbname,
                 city = city,
                 state = state,
-                country = country
+                country = country,
+                imageNeighb = imageNeighb
             )
         except IntegrityError:
             raise ValueError("Neighborhood already exists")
@@ -99,7 +101,7 @@ class Post(Model):
     imgUrl = CharField()
     text = TextField()
     category = CharField()
-    # priority = IntegerField()
+    priority = IntegerField(default=0)
 
     class Meta:
         database = DATABASE
@@ -139,8 +141,8 @@ class Comment(Model):
         order_by = ('-dateCommentCreated',)
 
 class UserUpVote(Model):
-    userId = IntegerField()
-    postId = IntegerField()
+    user_id= IntegerField()
+    post_id= IntegerField()
     class Meta:
         database = DATABASE
 
