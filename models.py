@@ -9,9 +9,9 @@ from playhouse.db_url import connect
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 
-# DATABASE = SqliteDatabase('neighbors.db')
+DATABASE = SqliteDatabase('neighbors.db')
 #  this will no longer work on my local machine b/ we are connectin tto heroku
-DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 class Neighbor(Model):
     neighbname = CharField(unique=True)
