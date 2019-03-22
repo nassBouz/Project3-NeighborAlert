@@ -10,23 +10,24 @@
                 {{ form.hidden_tag() }}
                 <div>
                 {{ form.title.label }}
-                {{ form.title(class_="input") }}
+                {{ form.title(class_="input", value=post.title) }}
                 </div>
                 <div>
                 {{ form.text.label }}
-                {{ form.text(class_="textarea") }}
+                <!-- problem herecan't get the text value to show up when editing -->
+                {{ form.text(class_="textarea", value=post.text) }}
                 </div>
                 <div>
                 {{ form.address.label() }}
-                {{ form.address() }}
+                {{ form.address(value=post.address) }}
                 </div>
                 <div>
                 {{ form.imgUrl.label() }}
-                {{ form.imgUrl() }}
+                {{ form.imgUrl(value=post.imgUrl) }}
                 </div>
                 <div>
                 {{ form.category.label() }}
-                {{ form.category() }}
+                {{ form.category(value=post.category) }}
                 </div>
                 {{ form.submit() }}
             </form>

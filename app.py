@@ -95,7 +95,7 @@ def neighborpage(neighborid):
             neighbor=neighbor_model)
         return redirect("/{}".format(neighborid))
 
-    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form) 
+    return render_template('posts.html', neighbor=neighbor_model, posts=posts, form=form, post={"title":"","text":"","address":"","imgUrl":"","category":""}) 
 
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
@@ -104,13 +104,39 @@ def profilepage(username):
 
     return render_template('user.html', user=user,posts=posts) 
 
-
+# name of the post sf= 1 whicb here is postid
 @app.route('/profile/<postid>/delete')
+# @login_required # todo: before submitting activate this to prevent users to delete w/o login
 def delete_post(postid):
     post = models.Post.get(models.Post.id == postid)
     post.delete_instance()
 
     return redirect(url_for('profilepage', username=g.user._get_current_object().username))
+
+
+@app.route('/profile/<postid>/edit', methods=['GET','POST']) # when you submit to update it is always POST!!!, First you GET the form from 'neighborpage.html' each field now has value=post.title, and user edits that info and POST route will submit that form Finally, save()
+# @login_required # todo: before submitting activate this to prevent users to delete w/o login
+def edit_post(postid):
+    # maybe we need to create form??
+    # 1st Let's render template!
+    post_id = int(postid) #convert id into integer 
+    post = models.Post.get(models.Post.id == post_id)
+    neighbor_model = models.Neighbor.get_by_id(post.neighbor_id)
+
+    form = forms.PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data # form.title.data this is form data getting reassigned
+        post.text = form.text.data
+        post.address = form.address.data
+        post.imgUrl = form.imgUrl.data
+        post.category = form.category.data
+        post.save() # http://docs.peewee-orm.com/en/latest/peewee/querying.html
+        return redirect("/{}".format(post.neighbor_id))
+
+    return render_template('neighborpage.html', neighbor=post.neighbor, post=post, form=form) 
+
+
+
 
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
