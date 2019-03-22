@@ -91,20 +91,35 @@ footer{
     justify-content: space-between;
 }
 
+#postpagebody{
+    background-color: rgb(240, 240, 240);
+    width:600px;
+    height:390px;
+    border: 2px solid black;
+    border-radius: 5px;
+}
+
 .message-body{
     background-color: rgb(240, 240, 240);
     width:600px;
-    height:200px;
+    height:auto;
     border: 2px solid black;
     border-radius: 5px;
+}
 
+.formbox{
+    width:610px;
+    border: 2px solid black;
+    border-radius: 5px;
+    background-color: #16FDFF30;
 }
 
 .commentbox{
-    width:600px;
-    border: 2px solid black;
-    border-radius: 5px;
+    background-color: #16FDFF30;
+}
 
+#commentsSection{
+    width:600px;
 }
 
 .post-title{
@@ -114,11 +129,20 @@ footer{
 }
 
 textarea{
-    border:none;
+    border: 2px solid black;
     outline:none;
     resize:none;
     overflow:auto;
-    width:590px;
+    width:600px;
+}
+
+input{
+    border: 2px solid black;
+    width:600px;
+}
+
+.submitButton{
+    width:100px;
 }
 /* button {
     margin-bottom: 10px;

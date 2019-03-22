@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
 <h3>{{post.title}}</h3>
 <div id="postWrap">
     <div>
@@ -8,7 +9,7 @@
             <h4>By: {{post.user.username}}</h4>
             <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
         </div>
-        <div class="message-body" >
+        <div id="postpagebody" >
             {{post.text}}
         </div>
     </div>
@@ -20,27 +21,31 @@
 
 
 {% if comments %}
-    <!-- <h4>Comments</h4> -->
-    {% for comment in comments %}
+    <div id="commentsSection">
+        <h4>Comments</h4>
+        {% for comment in comments %}
         <div class="commentbox">
-            {{comment.commentText}}
+            <div>
+                {{comment.commentText}}
+            </div>
+            <div>
+                <p>By: {{comment.user.username}}</p>
+            </div>
         </div>
-        <div>
-            <p>By: {{comment.user.username}}</p>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endif %}
 
 <section>
-    <h5>New Comment</h5>
+    <h6>Say something</h6>
     <form method="POST" novalidate>
         {{form.hidden_tag()}}
         <div>
-            <div class="commentbox">
+            <div>
                 {{ form.commentText() }}
             </div>
         </div>
-            {{ form.submit()}}
+        <button type=submit class="btn btn-primary">Comment</button>
     </form>
 </section>
 {% endblock %}

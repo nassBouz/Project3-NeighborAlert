@@ -5,17 +5,17 @@
     <section>
             <h2>{{neighbor.neighbname}}</h2>
             {% if current_user.is_authenticated %}
-            <h2>Tell us about this neighborhood</h2>
-            <form method="POST" action="" novalidate>
+            <h3>Tell us about this neighborhood</h3>
+            <form class="formbox" method="POST" action="" novalidate>
                 {{ form.hidden_tag() }}
                 <div>
                 {{ form.title.label }}
-                {{ form.title(class_="input", value=post.title) }}
+                {{ form.title(value=post.title) }}
                 </div>
                 <div>
                 {{ form.text.label }}
                 <!-- problem herecan't get the text value to show up when editing -->
-                {{ form.text(class_="textarea", value=post.text) }}
+                {{ form.text( value=post.text) }}
                 </div>
                 <div>
                 {{ form.address.label() }}
@@ -29,7 +29,7 @@
                 {{ form.category.label() }}
                 {{ form.category(value=post.category) }}
                 </div>
-                {{ form.submit() }}
+                <button type=submit class="btn btn-primary">Submit Post</button>
             </form>
             {% endif %}
 </section>

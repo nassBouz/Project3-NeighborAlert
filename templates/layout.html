@@ -149,7 +149,9 @@
         <p>Missed a fun event close to where you live? Need helping moving that couch up some stairs? Heard a car alarm go off last night? Find out about whats happening in your neighborhood! Use NeighborAlert to keep up with most current news and events in your area!</p>
     </section>
     {%endif%}
-
+    {% if current_user.is_authenticated %}
+    <h1 align="center">Welcome back!</h1>
+    {%endif%}
     <section>
         {% block content%}
         {% endblock %}
