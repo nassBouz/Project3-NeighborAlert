@@ -67,7 +67,7 @@ def handle_signin(form):
             flash("your email or password doesn't match", "error")
 
 
-# ///////////////// this code is from https://flask-wtf.readthedocs.io/en/latest/form.html
+# ///////////////// this code is from https://flask-wtf.readthedocs.io/en/latest/form.html, http://www.patricksoftwareblog.com/tag/flask-uploads/
 
 
 @app.route('/photo', methods=['GET', 'POST'])
