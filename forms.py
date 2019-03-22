@@ -68,7 +68,7 @@ class SignInForm(Form):
 
 class PostForm(Form):
     title = TextField("Title")
-    text = TextAreaField("Content")
+    text = TextField("Content")
     address=  TextField('Address')
     imgUrl = StringField("Image")
     category = StringField("Category")
