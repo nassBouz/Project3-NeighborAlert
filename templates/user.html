@@ -3,17 +3,17 @@
 {% block content %}
 <div>
     <div>
-        <h1>Profile Page</h1>
-        <h1>{{ user.fullname }}</h1>
-        <h1>{{ user.username }}</h1>
-        <h1>{{ user.email }}</h1>
-        <h1>{{ user.joined_at }}</h1>
+        <h3>Profile Page</h3>
+        <h4>{{ user.fullname }}</h4>
+        <h4>{{ user.username }}</h4>
+        <h4>{{ user.email }}</h4>
+        <h4>{{ user.joined_at }}</h4>
     </div>
     <div>
             <h5>My Posts</h5>
 
     {% if posts %}
-    <h1>Post List</h1>
+    <h3>Post List</h3>
     
     {% for post in posts %}
     <article class="message is-primary">
@@ -25,10 +25,8 @@
         <div class="message-body">
             {{post.text}}
         </div>
-        <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-dark">Delete</button></a>
-
-        <button class="btn btn-dark">Edit</button>
-        
+        <button class="btn btn-dark">Edit</button> 
+        <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-danger">Delete</button></a>
     </article>
     {% endfor %}
     {% endif %}

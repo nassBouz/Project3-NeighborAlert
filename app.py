@@ -68,7 +68,6 @@ def index():
     neighborhoods = models.Neighbor.select()
     sign_up_form = forms.SignUpForm()
     sign_in_form = forms.SignInForm()
-    logout_user()
 
     if sign_up_form.validate_on_submit():
         handle_signup(sign_up_form)

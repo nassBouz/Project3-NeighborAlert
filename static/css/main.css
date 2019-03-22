@@ -85,6 +85,41 @@ footer{
 #signin-form, #signup-form {
     display: none;
 }
+
+#postWrap{
+    display: flex;
+    justify-content: space-between;
+}
+
+.message-body{
+    background-color: rgb(240, 240, 240);
+    width:600px;
+    height:200px;
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+
+.commentbox{
+    width:600px;
+    border: 2px solid black;
+    border-radius: 5px;
+
+}
+
+.post-title{
+    width:600px;
+    background-color: deepskyblue;
+    border-radius: 5px;
+}
+
+textarea{
+    border:none;
+    outline:none;
+    resize:none;
+    overflow:auto;
+    width:590px;
+}
 /* button {
     margin-bottom: 10px;
 } */

@@ -1,45 +1,46 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Post</h1>
-<article class="message is-primary">
-    <div class="message-header">
-        <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
+<h3>{{post.title}}</h3>
+<div id="postWrap">
+    <div>
+        <div class="post-title">
+            <h4>By: {{post.user.username}}</h4>
+            <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
+        </div>
+        <div class="message-body" >
+            {{post.text}}
+        </div>
+    </div>
 
-        <p>By: {{post.user.username}}</p>
+    <div>
+        <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q={{post.address}}&key=AIzaSyAVi2f6ymqCncDvu6tMlbsFGPq-kVK5WGE" allowfullscreen></iframe>
     </div>
-    <div class="message-body">
-        {{post.text}}
-    </div>
-</article>
+</div>
+
 
 {% if comments %}
-    <h1>Comment List</h1>
+    <!-- <h4>Comments</h4> -->
     {% for comment in comments %}
-    <article class="message is-primary">
-        <div class="message-header">
-            <p>By: {{comment.user.username}}</p>
-        </div>
-        <div class="message-body">
+        <div class="commentbox">
             {{comment.commentText}}
         </div>
-        <br>
-    </article>
+        <div>
+            <p>By: {{comment.user.username}}</p>
+        </div>
     {% endfor %}
 {% endif %}
 
 <section>
-    <h2>New Comment</h2>
+    <h5>New Comment</h5>
     <form method="POST" novalidate>
         {{form.hidden_tag()}}
-    
-        <div class="field">
-                {{ form.commentText.label }}
+        <div>
+            <div class="commentbox">
                 {{ form.commentText() }}
+            </div>
         </div>
-    
             {{ form.submit()}}
-
     </form>
 </section>
 {% endblock %}

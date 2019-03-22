@@ -12,6 +12,7 @@
         <div class="message-header">
             <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
             <p> By: {{post.user.username}}</p>
+            <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
                 
         </div>
         <div class="message-body">
