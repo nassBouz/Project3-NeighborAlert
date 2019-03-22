@@ -24,7 +24,7 @@
     <title>NeighborAlert</title>
 </head>
 <body>
-
+    <div class="content">
 <!--###############  Begin of Nav bar regular ########### -->
     <header id="headwrap">
         <div class="wrap">
@@ -32,6 +32,16 @@
             <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
             <h3>Welcome</h3>
         </div>
+        <div>
+            {% with messages = get_flashed_messages(with_categories=True) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class={{category}}>{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
         <nav id="navButtons">
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
@@ -157,6 +167,7 @@
         {% block content%}
         {% endblock %}
     </section>
+    </div>
     <footer>&copy;2019 Nassima, Heggy, Alom</footer>
 </body>
 </html>

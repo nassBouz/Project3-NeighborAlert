@@ -11,6 +11,9 @@ import json
 from flask import send_from_directory
 from keyNeigh import keyNeigh
 
+#///////////uncomment this for heroku///////////////
+# from flask.ext.heroku import Heroku
+# heroku = Heroku(app)
 
 DEBUG = True
 PORT = 8000
@@ -267,6 +270,10 @@ def upvote(post_id):
 
     return redirect("/{}".format(post.neighbor_id))
 
+# This is checking to see if we are in the Heroku environment, if we are, build our tables. Note you can use this variable anywhere to check if you are on Heroku, you can figure out how to adapt your code to work locally and on heroku.
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 if __name__ == '__main__':
     models.initialize()

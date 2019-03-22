@@ -1,10 +1,17 @@
 import datetime
+import os
+
 from peewee import *
+# use the playhouse extension to connect to postgres on heroku
+#  https://git.generalassemb.ly/sf-wdi-51/flask-deployment/blob/master/README.md
+from playhouse.db_url import connect 
 
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 
 DATABASE = SqliteDatabase('neighbors.db')
+#  this will no longer work on my local machine b/ we are connectin tto heroku
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
 
 class Neighbor(Model):
     neighbname = CharField(unique=True)

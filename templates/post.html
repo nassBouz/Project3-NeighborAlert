@@ -33,9 +33,11 @@
             <h4>By: {{post.user.username}}</h4>
             <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
         </div>
+        <img align="center" src={{post.imgUrl}} />
         <div id="postpagebody" >
             {{post.text}}
         </div>
+
     </div>
 
     <div>
