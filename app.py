@@ -2,10 +2,13 @@ from flask import Flask, g
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
-
+from werkzeug.utils import secure_filename
+import os
 import models
 import forms
 import json
+# to upload photo
+from flask import send_from_directory
 
 
 DEBUG = True
@@ -62,6 +65,29 @@ def handle_signin(form):
             return redirect(url_for('index'))
         else:
             flash("your email or password doesn't match", "error")
+
+
+# ///////////////// this code is from https://flask-wtf.readthedocs.io/en/latest/form.html
+
+
+@app.route('/photo', methods=['GET', 'POST'])
+def upload():
+    form = forms.ImageUpload()
+    if form.validate_on_submit():
+        f = form.photo.data
+        filename = secure_filename(f.filename )
+        f.save(os.path.join(
+            app.instance_path, 'photos', filename
+        ))
+        return redirect(url_for('upload'))
+    return render_template('downloadPicture.html', form=form)
+# see the pictures in the browser
+@app.route('/photo/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'],
+                               filename)
+
+# //////////////////
 
 @app.route('/', methods=('GET', 'POST'))
 def index():
