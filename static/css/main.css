@@ -1,3 +1,7 @@
+.content{
+    min-height: calc(100vh - 50px);
+}
+
 #bannerImg {
     width:1425px;
 }
@@ -66,6 +70,7 @@ footer{
     background-color: #16FDFF;
     text-align: center;
     padding: 10px;
+    height: 50px;
 }
 
 #anchor{
