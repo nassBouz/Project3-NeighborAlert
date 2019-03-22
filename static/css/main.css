@@ -99,7 +99,7 @@ footer{
 #postpagebody{
     background-color: rgb(240, 240, 240);
     width:600px;
-    height:390px;
+    height:auto;
     border: 2px solid black;
     border-radius: 5px;
 }

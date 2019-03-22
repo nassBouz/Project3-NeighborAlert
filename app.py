@@ -267,12 +267,12 @@ if __name__ == '__main__':
             state = 'California',
             country = 'USA'
             )
-        models.User.create_user(
-            username='nass',
-            email="nasm@ga.com",
-            password='123',
-            fullname= 'Nass Bou'
-            )
+        # models.User.create_user(
+        #     username='nass',
+        #     email="nasm@ga.com",
+        #     password='123',
+        #     fullname= 'Nass Bou'
+        #     )
     except ValueError:
         pass
 
