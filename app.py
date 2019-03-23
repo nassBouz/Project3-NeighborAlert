@@ -144,7 +144,7 @@ def profilepage(username):
 
 # name of the post sf= 1 whicb here is postid
 @app.route('/profile/<postid>/delete')
-# @login_required # todo: before submitting activate this to prevent users to delete w/o login
+@login_required # todo: before submitting activate this to prevent users to delete w/o login
 def delete_post(postid):
     post = models.Post.get(models.Post.id == postid)
     post.delete_instance()
@@ -153,7 +153,7 @@ def delete_post(postid):
 
 
 @app.route('/profile/<postid>/edit', methods=['GET','POST']) # when you submit to update it is always POST!!!, First you GET the form from 'neighborpage.html' each field now has value=post.title, and user edits that info and POST route will submit that form Finally, save()
-# @login_required # todo: before submitting activate this to prevent users to delete w/o login
+@login_required # todo: before submitting activate this to prevent users to delete w/o login
 def edit_post(postid):
     # maybe we need to create form??
     # 1st Let's render template!
