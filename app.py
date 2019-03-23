@@ -243,6 +243,11 @@ def new_post():
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
 
+# about us page
+@app.route('/aboutUs')
+def aboutUs():
+    return render_template('aboutUs.html')
+
 @app.route('/like/<int:post_id>')
 @login_required
 def upvote(post_id):
