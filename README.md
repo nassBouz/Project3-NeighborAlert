@@ -9,14 +9,15 @@
 ## Core Technical Requirements Implemented:
 * **Flask:** Flask as the core framework for Python.
 * **PostgreSQL:** PostgreSQL for database in development and production.
-* **Data Models** Include at least two data models with associations.
-* **Data Validation:** Your application should validate incoming data before entering it into the database.
-* **Error Handling:** Forms in your application should also validate data, handle incorrect inputs, and provide user feedback on the client side.
-* **Views:** Use **Jinja templates**.
-* **Home & About Pages:** Create a landing page (homepage) that clearly explains your app's value proposition and guides the user through the "get started" funnel. Create an about page that includes photos and brief bios of your team members.
-* **User Experience:** Ensure a pleasing and logical user experience. Use a framework like Bootstrap, Bulma, or Skeleton to enhance and ease your CSS styling.
-* **Responsive Design:** Make sure your app looks great on a phone or tablet.
-* **Heroku:** Deploy your app to Heroku. Ensure no app secrets are exposed. *Do not commit secret keys to GitHub!*
+* **Data Models** ERD: Data models with associations.
+<img src="https://cdn.glitch.com/cb093bfd-142f-45b3-bdb4-52ff49e0a1c2%2Ferd.png?1553309463307">
+* **Data Validation:** App validates incoming data before entering it into the database.
+* **Error Handling:** Forms in our application validates data, handles incorrect inputs, and provides user feedback on the client side.
+* **Views:** Our app use **Jinja templates**.
+* **Home & About Pages:** Our app has a landing page (homepage) that clearly explains our app's value proposition and guides the user through the "get started" funnel. Create an about page that includes photos and brief bios of your team members.
+* **User Experience:** To ensure a pleasing and logical user experience we use Bootstrap, MediaQuery to enhance and ease your CSS styling.
+* **Responsive Design:** Our app looks great on any device (phone or desktop).
+* **Heroku:** We deployed our app to Heroku but it some issues. [Heroku version with some issues](https://nbor-alert-heroku.herokuapp.com/)
 
 ## AirDrop Farer App Hierarchy:
 ```
