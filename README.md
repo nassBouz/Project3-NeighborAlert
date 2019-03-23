@@ -9,17 +9,19 @@
 ## Technical Requirements
 
 ### Core Technical Requirements Implemented:
+
 * **Flask:** Flask as the core framework for Python.
 * **PostgreSQL:** PostgreSQL for database in development and production.
 * **Data Models** ERD: Data models with associations.
-<img src="https://cdn.glitch.com/cb093bfd-142f-45b3-bdb4-52ff49e0a1c2%2Ferd.png?1553309463307">
+  <img src="https://cdn.glitch.com/cb093bfd-142f-45b3-bdb4-52ff49e0a1c2%2Ferd.png?1553309463307">
 * **Data Validation:** App validates incoming data before entering it into the database.
 * **Error Handling:** Forms in our application validates data, handles incorrect inputs, and provides user feedback on the client side.
 * **Views:** Our app use **Jinja templates**.
 * **Home & About Pages:** Our app has a landing page (homepage) that clearly explains our app's value proposition and guides the user through the "get started" funnel. Create an about page that includes photos and brief bios of your team members.
 * **User Experience:** To ensure a pleasing and logical user experience we use Bootstrap, MediaQuery to enhance and ease your CSS styling.
 * **Responsive Design:** Our app looks great on any device (phone or desktop).
-* **Heroku:** We deployed our app to Heroku but it some issues. [Heroku version with some issues](https://nbor-alert-heroku.herokuapp.com/)
+* **Heroku:** We deployed our app to Heroku but it some issues. 
+  * [Heroku version with some issues](https://nbor-alert-heroku.herokuapp.com/)
 
 ### Flexible Technical Requirements
 * **User Login** Make sure you have authentication *and* authorization.
