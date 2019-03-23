@@ -30,9 +30,9 @@
         <div class="wrap">
             <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
             <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
-            <h3>Welcome</h3>
+            <!-- <h3>Welcome</h3> -->
         </div>
-        <div>
+        <div id="error_message">
             {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                     {% for category, message in messages %}

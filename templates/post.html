@@ -26,14 +26,16 @@
 {% endblock %}
 
 {% block content %}
-<h3>{{post.title}}</h3>
 <div id="postWrap">
     <div>
         <div class="post-title">
-            <h4>By: {{post.user.username}}</h4>
+            <h4>{{post.title}}</h4>
+            <h6>By: {{post.user.username}}</h6>
             <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
         </div>
-        <img align="center" src={{post.imgUrl}} />
+        <div class="message-body">
+        <img src={{post.imgUrl}} />
+        </div>
         <div id="postpagebody" >
             {{post.text}}
         </div>
@@ -52,7 +54,7 @@
         {% for comment in comments %}
         <div class="commentbox">
             <div>
-                {{comment.commentText}}
+                <p>{{comment.commentText}}</p>
             </div>
             <div>
                 <p>By: {{comment.user.username}}</p>
@@ -72,7 +74,7 @@
                     {{ form.commentText() }}
                 </div>
             </div>
-            <button type=submit class="btn btn-primary">Comment</button>
+            <button id="submitButton" type=submit class="btn btn-primary">Comment</button>
         </form>
     </section>
 {% endif %}

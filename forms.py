@@ -23,8 +23,6 @@ def email_exists(form, field):
         raise ValidationError('User with that email already exists.')
 
 
-
-
 class SignUpForm(Form):
     username = StringField(
         'Username',
@@ -67,8 +65,8 @@ class SignInForm(Form):
     password = PasswordField('Password', validators=[DataRequired()])
 
 class PostForm(Form):
-    title = TextField("Title")
-    text = TextField("Content")
+    title = TextField("Title", validators=[DataRequired()])
+    text = TextField("Content", validators=[DataRequired()])
     address=  TextField('Address')
     imgUrl = StringField("Image")
     category = StringField("Category")
