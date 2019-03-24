@@ -240,6 +240,11 @@ def new_post():
         return redirect(url_for('index'))
     return render_template('posts.html', form=form)
 
+# about us page
+@app.route('/aboutUs')
+def aboutUs():
+    return render_template('aboutUs.html')
+
 @app.route('/like/<int:post_id>')
 @login_required
 def upvote(post_id):
@@ -306,7 +311,7 @@ if __name__ == '__main__':
             )
         models.User.create_user(
             username='nass',
-            email="nasm@ga.com",
+            email="nass@ga.com",
             password='123',
             fullname= 'Nassima Bouz',
             )

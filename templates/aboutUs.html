@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>NeighborAlert About Us Page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>
+  .jumbotron {
+    background-color: #16FDFF;
+    color: #fff;
+    padding: 100px 25px;
+  }
+  .container-fluid {
+    padding: 60px 50px;
+  }
+  .bg-grey {
+    background-color: #f6f6f6;
+  }
+ 
+  .thumbnail{
+    height: 850px;
+    rotate : 30deg;
+
+  }
+ #services-section{
+   margin-top: 50px;
+ }
+  .logo-small {
+    color: #f4511e;
+    font-size: 75px;
+  }
+ #nassima-picture{
+    height:500px;
+  } 
+  @media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+  }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>NeighborAlert Team </h1> 
+  <p>This Project was made by : Alom Hossain , Nassima Bouziane and Huggy Castaneda</p> 
+  <p><a href="http://localhost:8000/aboutUs">Back NeighborAlet App</a></p>
+</div>
+
+<!--  our mission  -->
+<div class="container-fluid bg-grey">
+  <div class="row">
+    <div class="col-sm-4">
+      <img src="../static/neighlogo.png" alt="neighborAlet-logo"  width="100" height="100" >
+    </div>
+    <div class="col-sm-8">
+      <h2>Our Values</h2>
+      <h4><strong>MISSION:</strong> Our mission lorem ipsum..</h4>      
+      <p><strong>VISION:</strong> Our vision Lorem ipsum..</p>
+    </div>
+  </div>
+</div>
+
+<!-- members biography card  -->
+<div class ="row">
+<!-- -----heggy  -->
+    <div class="col-sm-12 col-md-4">
+      <div class="thumbnail">
+        <img src="../static/heggyprofile.png" alt="heggy-picture">
+        <div class="caption">
+          <h3>Heggy Castaneda</h3>
+          <p>Heggy is an accountant turned into a full-stack developer with keen eye for details and love to debug in console.  For fun she enjoys hanging out with her husband! </p>
+          <p><a href="mailto:huggy">Send me an email!</a></p>
+        </div>
+      </div>
+    </div>
+<!-- -------Nassima -->
+    <div class="col-sm-12 col-md-4">
+      <div class="thumbnail">
+        <img src="../static/NassimaB.jpeg" alt="nassima-picture" id="nassima-picture">
+        <div class="caption">
+          <h3>Nassima Bouziane</h3>
+          <p>I'm a full stack web developer living in the Bay Area, California. I enjoy web development from back end programming (JavaScript, Django/Python, C++, NodeJs) to front end engineering (HTML, CSS, and jQuerry/Javascript, React)</p>
+            <p>Aside from web development, I enjoy spending my time with my husband , sons, friends, listening to music, taking care of my plants and cooking</p>
+          <p><a href="mailto:bouzianenassima@gmail.com">Send me an email!</a></p>
+        </div>
+      </div>
+  </div>
+<!-- --------Alom ------>
+    <div class="col-sm-12 col-md-4">
+      <div class="thumbnail">
+        <img src="../static/alom.jpg" alt="alom-picture">
+        <div class="caption">
+          <h3>Alomgir Hossain</h3>
+          <p>After spending several years working as an aeronautical engineer, food entrepreneur, and then shifting to software quality assurance, my natural curiosity and desire to understand how each process at every level works led me to explore the world of software engineering and web development. The ability to program computers to handle multiple tasks and execute complex functions to simplify the lives of others was of great interest to me. I’ve always been excited about the capability of computer technology and look forward on mastering the ability to implement new solutions to increase efficiency and beyond.</p>
+          <p><a href="mailto:alom">Send me an email!</a></p>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+<!-- our Services Section -->
+<div class="container-fluid text-center" id="services-section">
+  <h2>SERVICES</h2>
+  <h4>What we offer</h4>
+  <br>
+  <div class="row">
+    <div class="col-sm-6 col-md-4" >
+      <span class="glyphicon glyphicon-off logo-small"></span>
+      <h4>POWER</h4>
+      <p>This project was made from scratch in one week</p>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <span class="glyphicon glyphicon-heart logo-small"></span>
+      <h4>LOVE</h4>
+      <p>This project is made with love to give the user the best experience</p>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <span class="glyphicon glyphicon-lock logo-small"></span>
+      <h4>JOB DONE</h4>
+      <p>We worked hard to finish on time :)</p>
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+    <div class="col-sm-6 col-md-4">
+      <span class="glyphicon glyphicon-certificate logo-small"></span>
+      <h4>CERTIFIED</h4>
+      <p>General Assembly</p>
+    </div>
+    <div class="col-sm-6 col-md-4">
+      <span class="glyphicon glyphicon-wrench logo-small"></span>
+      <h4 style="color:#303030;">HARD WORK</h4>
+      <p>Hard work is the key for success</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

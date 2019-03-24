@@ -30,6 +30,8 @@
         <div class="wrap">
             <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
             <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
+            <h3>Welcome</h3>
+            <a class="button" href="{{ url_for ('aboutUs') }}">About Us </a>
             <!-- <h3>Welcome</h3> -->
         </div>
         <div id="error_message">
@@ -43,13 +45,34 @@
         </div>
 
         <nav id="navButtons">
+        <!-- ********* beginning of flex box nav buttons -->
+        <div class="wrap">
+            <!-- ############## Help section: Show user how to navigate ########### -->
+            <!-- Button for Help ************* -->
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
+            <!-- Modal for Help -->
+            <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="modal-header">
+                    <h3 class="modal-title" id="helpTitle">Help Section</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        {% include "help.html" %}
+                    </div>
+                </div>
+                </div>
+            </div> <!-- ************** end of Modal for help-->
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
-                <div class="wrap">
+
                     <a id="anchor" href={{url_for('profilepage', username=current_user.username)}}><h3>Hello {{current_user.username}}</h3></a>
                     <!-- signout button -->
                     <a href="{{url_for('logout')}}"> <button class="btn btn-dark">Sign Out</button></a>
-                </div>
+
             {% else %}
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#SignInModal">Sign In</button>
                 <!-- Modal -->
@@ -89,11 +112,12 @@
                     </div>
                 </div>
             {% endif %}
+        </div> <!-- end of wrap flexbox for nav buttons this is end of wrap which gives flex col-2 ***************** -->
         </nav> 
     </header> <!-- ######### end of regular nav bar ########## -->
 
 <!-- ############# Begin of hamburger menu div and icon ############## -->
-    <i class="fas fa-bars hamburger-menu-icon"></i>
+    <div id="hamburger-icon"><i class="fas fa-bars fa-2x hamburger-menu-icon"></i></div>
     <div class="hamburger-nav-bar">
         <header>
             <div class="wrap">
@@ -153,7 +177,7 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+    </div>
 
     <section id="aboutWrap">
         <h2>About</h2>
@@ -168,6 +192,9 @@
         {% endblock %}
     </section>
     </div>
-    <footer>&copy;2019 Nassima, Heggy, Alom</footer>
+    <footer>
+        &copy;2019 Nassima, Heggy, Alom 
+        <!-- <a href="{{ url_for('aboutUs') }}">ABOUT</a> -->
+    </footer>
 </body>
 </html>

@@ -97,16 +97,19 @@ footer{
     margin-top: 40px;
 }
 /* ########### hamburger menu ######### */
+#hamburger-icon{
+    margin: 10px 10px;
+}
 .hamburger-nav-bar {
     display: none;
 }
 .hamburger-menu-icon {
     display: none !important;
 }
+/* signin, signup forms inside of hamburger menu */
 #signin-form, #signup-form {
     display: none;
 }
-
 #postWrap{
     display: flex;
     justify-content: space-between;
@@ -214,7 +217,7 @@ label, h3, h6, h4, p,i, time{
 } */
 
 /* hamburger to show up in small screen */
-@media only screen and (max-width: 690px) {
+@media only screen and (max-width: 815px) {
     .hamburger-menu-icon {
       display: block !important;
     }
@@ -226,7 +229,7 @@ label, h3, h6, h4, p,i, time{
     }
 }
 
-@media only screen and (min-width: 690px) {
+@media only screen and (min-width: 816px) {
     .hamburger-menu-icon {
       display: none !important;
     }
@@ -236,5 +239,9 @@ label, h3, h6, h4, p,i, time{
     /* #SignInModal{
         display: block;
     } */
+    #post-map-wrap{
+        display: flex;
+        justify-content: space-between;
+    }
 
 }
