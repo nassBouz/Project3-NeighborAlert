@@ -27,11 +27,16 @@
 
 
 {% block content %}
-<!--headwrap flex box for 2 -col   -->
-<div id="headwrap">
+<!--post and map wrap flex box for 2 -col   -->
+<div id="post-map-wrap">
     <section>
             <h2>{{neighbor.neighbname}}</h2>
             {% if current_user.is_authenticated %}
+
+                {% if not posts %}
+                    <div>There is no post about {{neighbor.neighbname}} currently!  Please create one!</div>
+                {% endif %}
+
             <h3>Tell us about this neighborhood</h3>
             <form class="formbox" method="POST" action="" novalidate>
                 {{ form.hidden_tag() }}
@@ -56,7 +61,7 @@
                 {{ form.category.label() }}
                 {{ form.category(value=post.category) }}
                 </div>
-                <button type=submit class="btn btn-primary">Submit Post</button>
+                <button type=submit class="btn btn-primary" id="submitButton">Submit Post</button>
             </form>
             {% endif %}
     </section>

@@ -173,9 +173,6 @@ def edit_post(postid):
 
     return render_template('neighborpage.html', neighbor=post.neighbor, post=post, form=form) 
 
-
-
-
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
 def posts(id=None):
@@ -284,14 +281,14 @@ if __name__ == '__main__':
     models.initialize()
     try:
         models.Neighbor.create_neighborhood(
-            neighbname = 'FIDI',
+            neighbname = 'Financial District',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
+            imageNeighb = 'https://images.unsplash.com/photo-1538445289442-ac987a2637e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
             )
         models.Neighbor.create_neighborhood(
-            neighbname = 'China Town',
+            neighbname = 'Chinatown',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
@@ -302,14 +299,14 @@ if __name__ == '__main__':
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
+            imageNeighb = 'https://images.unsplash.com/photo-1506047610595-ab105976d1ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'
             )
         models.Neighbor.create_neighborhood(
             neighbname = 'SoMa',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://media.timeout.com/images/102875459/630/472/image.jpg'
+            imageNeighb = 'https://images.unsplash.com/photo-1506047526346-2bad9ca0cec4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
 
             )
         models.User.create_user(
@@ -325,7 +322,7 @@ if __name__ == '__main__':
             fullname= 'Alom Hossain'
             )
         models.User.create_user(
-            username='Huggy',
+            username='Heggy',
             email="huggy@ga.com",
             password='123',
             fullname= 'Beautiful Huggy'

@@ -33,7 +33,7 @@ header{
 
 #navButtons button{
     margin:10px;
-    margin-top:15px;
+    margin-top:8px;
     padding:10px;
     font-size: 16px;
 }
@@ -97,16 +97,19 @@ footer{
     margin-top: 40px;
 }
 /* ########### hamburger menu ######### */
+#hamburger-icon{
+    margin: 10px 10px;
+}
 .hamburger-nav-bar {
     display: none;
 }
 .hamburger-menu-icon {
     display: none !important;
 }
+/* signin, signup forms inside of hamburger menu */
 #signin-form, #signup-form {
     display: none;
 }
-
 #postWrap{
     display: flex;
     justify-content: space-between;
@@ -116,8 +119,10 @@ footer{
     background-color: rgb(240, 240, 240);
     width:600px;
     height:auto;
-    border: 2px solid black;
-    border-radius: 5px;
+    border-right: 2px solid black;
+    border-left: 2px solid black;
+    border-bottom: 2px solid black;
+    /* border-radius: 5px; */
 }
 
 .message-body{
@@ -125,21 +130,29 @@ footer{
     width:600px;
     height:auto;
     border: 2px solid black;
-    border-radius: 5px;
+    /* border-radius: 5px; */
+}
+
+.message-body img{
+    width:50%;
+    display: block;
+    margin: auto;
+    margin-bottom: 10px;
 }
 
 .formbox{
-    width:610px;
+    width:600px;
     border: 2px solid black;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     background-color: #16FDFF30;
+    margin-left: 10px
 }
-
-
 
 .commentbox{
     background-color: #16FDFF30;
     margin-top:10px;
+    margin-left: 10px;
+    width: 600px;
 }
 
 #commentsSection{
@@ -149,31 +162,56 @@ footer{
 .post-title{
     width:600px;
     background-color: deepskyblue;
-    border-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
+
+#post-list-wrap{
+    display: flex;
+}
+
+#post-list-wrap img{
+    height: 100px;
+    width: 150px;
+}
+
 
 textarea{
     border: 2px solid black;
     outline:none;
     resize:none;
     overflow:auto;
-    width:600px;
+    width: 580px;
+    margin:10px 10px;
 }
 
 .formbox input{
     border: 2px solid black;
-    width:600px;
+    width:580px;
+    margin:0 10px 10px 10px;
 }
 
-.submitButton{
-    width:100px;
+#error_message{
+    text-align: center;
+    margin-top: 20px;
 }
+
+#submitButton{
+    margin-bottom: 10px;
+    margin-left: 10px;
+}
+
+label, h3, h6, h4, p,i, time{
+    margin-left: 10px;
+    margin-bottom: 0;
+}
+
 /* button {
     margin-bottom: 10px;
 } */
 
 /* hamburger to show up in small screen */
-@media only screen and (max-width: 690px) {
+@media only screen and (max-width: 815px) {
     .hamburger-menu-icon {
       display: block !important;
     }
@@ -185,7 +223,7 @@ textarea{
     }
 }
 
-@media only screen and (min-width: 690px) {
+@media only screen and (min-width: 816px) {
     .hamburger-menu-icon {
       display: none !important;
     }
@@ -195,5 +233,9 @@ textarea{
     /* #SignInModal{
         display: block;
     } */
+    #post-map-wrap{
+        display: flex;
+        justify-content: space-between;
+    }
 
 }

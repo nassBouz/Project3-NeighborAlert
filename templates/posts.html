@@ -1,35 +1,33 @@
 {% extends "neighborpage.html" %}
 
 {% block post_list %}
-
-
-
     {% if posts %}
-    <h1>Post List</h1>
-    
-    {% for post in posts %}
-    <article class="commentbox" >
-        <div >
-
-            <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
-            <p> By: {{post.user.username}}</p>
-            <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
-                
-        </div>
-        <div>
-            {% if current_user.is_authenticated %}
-                <a href="{{url_for('upvote', post_id=post.id)}}"><i class="fa fa-thumbs-o-up" style="font-size:36px"></i></a>
-                {{post.priority}}
-                <!-- <p>{{post.upvotes}}</p> -->
-             {%endif%}
-          
-        </div>
-        <div class="message-body">
-            {{post.text}}
-            <img src={{post.imgUrl}} />
-        </div>
-    </article>
-    {% endfor %}
+    <h3>Posts</h3>
+        {% for post in posts %}
+        <article class="commentbox" >
+            <div id="post-list-wrap">
+                <div>
+                    <div>
+                        <img src={{post.imgUrl}} />
+                    </div>
+                </div>
+                <div>
+                    <div >
+                        <a href={{url_for('posts', id=post.id)}}><p>{{post.title}}</p></a>
+                        <p> By: {{post.user.username}}</p>
+                        <time data-time="{{ post.datePostCreated }}" class="distime" datetime="{{ post.datePostCreated.strftime('%Y-%m-%d  %I:%M') }}">{{ post.datePostCreated.strftime('%Y-%m-%d %I:%M') }}</time>
+                    </div>
+                    <div>
+                        {% if current_user.is_authenticated %}
+                            <a href="{{url_for('upvote', post_id=post.id)}}"><i class="fa fa-thumbs-o-up" style="font-size:36px"></i></a>
+                            {{post.priority}}
+                            <!-- <p>{{post.upvotes}}</p> -->
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </article>
+        {% endfor %}
     {% endif %}
 
 {% endblock %}
