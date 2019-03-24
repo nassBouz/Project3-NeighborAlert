@@ -211,7 +211,7 @@ label, h3, h6, h4, p,i, time{
 } */
 
 /* hamburger to show up in small screen */
-@media only screen and (max-width: 690px) {
+@media only screen and (max-width: 815px) {
     .hamburger-menu-icon {
       display: block !important;
     }
@@ -223,7 +223,7 @@ label, h3, h6, h4, p,i, time{
     }
 }
 
-@media only screen and (min-width: 690px) {
+@media only screen and (min-width: 816px) {
     .hamburger-menu-icon {
       display: none !important;
     }
@@ -233,5 +233,9 @@ label, h3, h6, h4, p,i, time{
     /* #SignInModal{
         display: block;
     } */
+    #post-map-wrap{
+        display: flex;
+        justify-content: space-between;
+    }
 
 }
