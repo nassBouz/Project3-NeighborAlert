@@ -32,6 +32,11 @@
     <section>
             <h2>{{neighbor.neighbname}}</h2>
             {% if current_user.is_authenticated %}
+
+                {% if not posts %}
+                    <div>There is no post about {{neighbor.neighbname}} currently!  Please create one!</div>
+                {% endif %}
+
             <h3>Tell us about this neighborhood</h3>
             <form class="formbox" method="POST" action="" novalidate>
                 {{ form.hidden_tag() }}
