@@ -33,6 +33,8 @@
             <!-- <h3>Welcome</h3> -->
         </div>
         <div id="error_message">
+            <!-- ********* beginning of flex box nav buttons -->
+            <div class="wrap">
             {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -43,6 +45,25 @@
         </div>
 
         <nav id="navButtons">
+            <!-- ############## Help section: Show user how to navigate ########### -->
+            <!-- Button for Help ************* -->
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
+            <!-- Modal for Help -->
+            <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header" id="modal-header">
+                    <h3 class="modal-title" id="helpTitle">Help Section</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        {% include "help.html" %}
+                    </div>
+                </div>
+                </div>
+            </div> <!-- ************** end of Modal for help-->
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
                 <div class="wrap">
@@ -153,7 +174,7 @@
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+    </div>
 
     <section id="aboutWrap">
         <h2>About</h2>
