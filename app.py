@@ -142,6 +142,22 @@ def profilepage(username):
 
     return render_template('user.html', user=user,posts=posts) 
 
+@app.route('/profile/<username>/edit', methods=['GET', 'PUT'])
+@login_required
+def edit_user(username):
+    # userid = g.user._get_current_object()
+    user = models.User.get(models.User.username == username)
+    form = forms.SignUpForm()
+    if form.validate_on_submit():
+        user.username = form.username.data
+        user.fullname = form.fullname.data
+        # user.picture = form.address.data
+        user.save()
+        return redirect("/{}".format(user.username))
+    
+    return render_template('user.html', user=user, form=form)
+
+
 # name of the post sf= 1 whicb here is postid
 @app.route('/profile/<postid>/delete')
 @login_required # todo: before submitting activate this to prevent users to delete w/o login
@@ -155,8 +171,6 @@ def delete_post(postid):
 @app.route('/profile/<postid>/edit', methods=['GET','POST']) # when you submit to update it is always POST!!!, First you GET the form from 'neighborpage.html' each field now has value=post.title, and user edits that info and POST route will submit that form Finally, save()
 @login_required # todo: before submitting activate this to prevent users to delete w/o login
 def edit_post(postid):
-    # maybe we need to create form??
-    # 1st Let's render template!
     post_id = int(postid) #convert id into integer 
     post = models.Post.get(models.Post.id == post_id)
     neighbor_model = models.Neighbor.get_by_id(post.neighbor_id)
@@ -253,8 +267,6 @@ def upvote(post_id):
     if posts.count() == 0:
         abort(404)
 
-
-
     post = models.Post.select().where(models.Post.id == post_id).get()
     if models.UserUpVote.select().where(models.UserUpVote.user_id == userId,models.UserUpVote.post_id == post_id).exists():
         (models.UserUpVote.select().where(models.UserUpVote.user_id == userId,models.UserUpVote.post_id == post_id).get()).delete_instance()
@@ -307,13 +319,40 @@ if __name__ == '__main__':
             state = 'California',
             country = 'USA',
             imageNeighb = 'https://images.unsplash.com/photo-1506047526346-2bad9ca0cec4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
-
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'Financial District2',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA',
+            imageNeighb = 'https://images.unsplash.com/photo-1538445289442-ac987a2637e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'Chinatown2',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA',
+            imageNeighb ='https://media.timeout.com/images/102875459/630/472/image.jpg'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'North Beach2',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA',
+            imageNeighb = 'https://images.unsplash.com/photo-1506047610595-ab105976d1ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'
+            )
+        models.Neighbor.create_neighborhood(
+            neighbname = 'SoMa2',
+            city = 'San Francisco',
+            state = 'California',
+            country = 'USA',
+            imageNeighb = 'https://images.unsplash.com/photo-1506047526346-2bad9ca0cec4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
             )
         models.User.create_user(
             username='nass',
             email="nass@ga.com",
             password='123',
-            fullname= 'Nassima Bouz',
+            fullname= 'Nassima Bouz'
             )
         models.User.create_user(
             username='alom',
