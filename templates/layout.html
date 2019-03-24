@@ -33,8 +33,6 @@
             <!-- <h3>Welcome</h3> -->
         </div>
         <div id="error_message">
-            <!-- ********* beginning of flex box nav buttons -->
-            <div class="wrap">
             {% with messages = get_flashed_messages(with_categories=True) %}
                 {% if messages %}
                     {% for category, message in messages %}
@@ -45,6 +43,8 @@
         </div>
 
         <nav id="navButtons">
+        <!-- ********* beginning of flex box nav buttons -->
+        <div class="wrap">
             <!-- ############## Help section: Show user how to navigate ########### -->
             <!-- Button for Help ************* -->
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
@@ -66,11 +66,11 @@
             </div> <!-- ************** end of Modal for help-->
             <!-- Button trigger modal -->
             {% if current_user.is_authenticated %}
-                <div class="wrap">
+
                     <a id="anchor" href={{url_for('profilepage', username=current_user.username)}}><h3>Hello {{current_user.username}}</h3></a>
                     <!-- signout button -->
                     <a href="{{url_for('logout')}}"> <button class="btn btn-dark">Sign Out</button></a>
-                </div>
+
             {% else %}
             <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#SignInModal">Sign In</button>
                 <!-- Modal -->
@@ -110,6 +110,7 @@
                     </div>
                 </div>
             {% endif %}
+        </div> <!-- end of wrap flexbox for nav buttons this is end of wrap which gives flex col-2 ***************** -->
         </nav> 
     </header> <!-- ######### end of regular nav bar ########## -->
 
