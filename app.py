@@ -314,7 +314,7 @@ if __name__ == '__main__':
             )
         models.User.create_user(
             username='nass',
-            email="nasm@ga.com",
+            email="nass@ga.com",
             password='123',
             fullname= 'Nassima Bouz',
             )

@@ -31,6 +31,7 @@
             <img id="logo" src={{url_for("static", filename= "neighlogo.png")}}>
             <a id="anchor" href="{{ url_for('index') }}"><h3>NeighborAlert</h3></a>
             <h3>Welcome</h3>
+            <a class="button" href="{{ url_for ('aboutUs') }}">About Us </a>
         </div>
         <div>
             {% with messages = get_flashed_messages(with_categories=True) %}
@@ -170,9 +171,7 @@
     </div>
     <footer>
         &copy;2019 Nassima, Heggy, Alom 
-        <!-- <a href="aboutUs.html"> About Us </a> -->
-        <!-- <a href={{url_for('aboutUs') }}></a> -->
-
+        <!-- <a href="{{ url_for('aboutUs') }}">ABOUT</a> -->
     </footer>
 </body>
 </html>
