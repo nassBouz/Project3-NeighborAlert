@@ -52,7 +52,7 @@ class User(UserMixin, Model):
     joined_at = DateTimeField(default=datetime.datetime.now())
     is_admin = BooleanField(default=False)
     fullname = CharField(max_length=120)
-    profileImgUrl = CharField(default = 'http://localhost:8000/static/default_user.png')
+    profileImgUrl = CharField(default='/static/userDefault.png')
     
     class Meta:
         database = DATABASE

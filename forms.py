@@ -65,7 +65,12 @@ class SignUpForm(Form):
 class SignInForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
-
+ 
+ class UserEditForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    username = StringField('Username', validators=[DataRequired(), Regexp( r'^[a-zA-Z0-9_]+$', message=("Username should be one word, letters, numbers, and underscores only.")),name_exists])
+    fullname= StringField('Full Name',validators=[ DataRequired(), Length(min=2)])
+    profileImgUrl = StringField("Image")
 class PostForm(Form):
     title = TextField("Title", validators=[DataRequired()])
     text = TextField("Content", validators=[DataRequired()])
