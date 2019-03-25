@@ -45,8 +45,6 @@ class Neighbor(Model):
             raise ValueError("Neighborhood already exists")
 
 
-
-
 class User(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
@@ -54,20 +52,23 @@ class User(UserMixin, Model):
     joined_at = DateTimeField(default=datetime.datetime.now())
     is_admin = BooleanField(default=False)
     fullname = CharField(max_length=120)
+    profileImgUrl = CharField(default = 'http://localhost:8000/static/default_user.png')
     
     class Meta:
         database = DATABASE
         order_by = ('-joined_at',)
         
     @classmethod
-    def create_user(cls, username, email,fullname, password, admin=False):
+    def create_user(cls, username, email,fullname, password, profileImgUrl, admin=False):
         try:
             cls.create(
                 username=username,
                 email=email,
                 fullname =fullname,
                 password=generate_password_hash(password),
-                is_admin=admin)
+                is_admin=admin,
+                profileImgUrl=profileImgUrl 
+            )
         except IntegrityError:
             raise ValueError("User already exists")
 
@@ -112,7 +113,7 @@ class Post(Model):
 
     class Meta:
         database = DATABASE
-        order_by = ('-datePostCreated',)
+        order_by = ('-priority',)
     
     @classmethod
     # create a method to get all the comments for a post

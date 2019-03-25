@@ -59,6 +59,8 @@ class SignUpForm(Form):
         'Confirm Password',
         validators=[DataRequired()]
     )
+    profileImgUrl = StringField("Image")
+
 
 class SignInForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
