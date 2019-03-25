@@ -27,70 +27,71 @@
 
 
 {% block content %}
-<!--post and map wrap flex box for 2 -col   -->
-<div id="post-map-wrap">
-    <section>
-            <h2>{{neighbor.neighbname}}</h2>
-            {% if not current_user.is_authenticated %}
-            <div class="formbox" id="nonmember">
-                Not yet a member? Sign up today to start posting! Visit our
-                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
-                    <!-- Modal for Help -->
-                    <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header" id="modal-header">
-                                    <h3 class="modal-title" id="helpTitle">Help Section</h3>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    {% include "help.html" %}
-                                </div>
-                            </div>
+    <!--post and map wrap flex box for 2 -col   -->
+    <div id="post-map-wrap">
+        <section>
+                <h2>{{neighbor.neighbname}}</h2>
+
+        {% block post_list %}
+        {% endblock %}
+
+        </section>
+        <section id="map">
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q={{neighbor.neighbname}},+{{neighbor.city}}&key=AIzaSyAVi2f6ymqCncDvu6tMlbsFGPq-kVK5WGE" allowfullscreen></iframe>
+        </section>
+    </div>
+
+    {% if not current_user.is_authenticated %}
+    <div class="formbox" id="nonmember">
+        Not yet a member? Sign up today to start posting! Visit our
+            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
+            <!-- Modal for Help -->
+            <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" id="modal-header">
+                            <h3 class="modal-title" id="helpTitle">Help Section</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                    </div> <!-- ************** end of Modal for help-->
-                page for more info.
+                        <div class="modal-body">
+                            {% include "help.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- ************** end of Modal for help-->
+        page for more info.
+    </div>
+    {% endif %}
+    {% if current_user.is_authenticated %}
+        {% if not posts %}
+            <div>There is no post about {{neighbor.neighbname}} currently!  Please create one!</div>
+        {% endif %}
+        <h3>Tell us about this neighborhood</h3>
+        <form class="formbox" method="POST" action="" novalidate>
+            {{ form.hidden_tag() }}
+            <div>
+            {{ form.title.label }}
+            {{ form.title(value=post.title) }}
             </div>
-            {% endif %}
-            {% if current_user.is_authenticated %}
-                {% if not posts %}
-                    <div>There is no post about {{neighbor.neighbname}} currently!  Please create one!</div>
-                {% endif %}
-                <h3>Tell us about this neighborhood</h3>
-                <form class="formbox" method="POST" action="" novalidate>
-                    {{ form.hidden_tag() }}
-                    <div>
-                    {{ form.title.label }}
-                    {{ form.title(value=post.title) }}
-                    </div>
-                    <div>
-                    {{ form.text.label }}
-                    {{ form.text( value=post.text) }}
-                    </div>
-                    <div>
-                    {{ form.address.label() }}
-                    {{ form.address(value=post.address) }}
-                    </div>
-                    <div>
-                    {{ form.imgUrl.label() }}
-                    {{ form.imgUrl(value=post.imgUrl) }}
-                    </div>
-                    <div>
-                    {{ form.category.label() }}
-                    {{ form.category(value=post.category) }}
-                    </div>
-                    <button type=submit class="btn btn-primary" id="submitButton">Submit Post</button>
-                </form>
-            {% endif %}
-    </section>
-    <section id="map">
-        <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q={{neighbor.neighbname}},+{{neighbor.city}}&key=AIzaSyAVi2f6ymqCncDvu6tMlbsFGPq-kVK5WGE" allowfullscreen></iframe>
-    </section>
-</div>
-
-{% block post_list %}
-{% endblock %}
-
+            <div>
+            {{ form.text.label }}
+            {{ form.text( value=post.text) }}
+            </div>
+            <div>
+            {{ form.address.label() }}
+            {{ form.address(value=post.address) }}
+            </div>
+            <div>
+            {{ form.imgUrl.label() }}
+            {{ form.imgUrl(value=post.imgUrl) }}
+            </div>
+            <div>
+            {{ form.category.label() }}
+            {{ form.category(value=post.category) }}
+            </div>
+            <button type=submit class="btn btn-primary" id="submitButton">Submit Post</button>
+        </form>
+    {% endif %}
 {% endblock %}
