@@ -121,6 +121,22 @@ class Post(Model):
         return Comment.select().where(Comment.post == self)
 
     @classmethod
+    def create_post(cls,user,neighbor, title, text, address, imgUrl,category):
+        try:
+            cls.create(
+                user=user, 
+                neighbor=neighbor,
+                title = title,
+                text= text,
+                address = address,
+                imgUrl = imgUrl,
+                category = category
+            )
+        except IntegrityError:
+            raise ValueError("Post error")
+
+
+    @classmethod
     def delete_post(cls, post_id):
         post = Post.get(Post.id == post_id)
         try:

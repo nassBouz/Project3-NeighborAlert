@@ -5,7 +5,7 @@ from flask_bcrypt import check_password_hash
 from werkzeug.utils import secure_filename
 import os
 import models 
-import forms
+import forms 
 import json
 # to upload photo
 from flask import send_from_directory
@@ -185,7 +185,7 @@ def edit_post(postid):
         post.imgUrl = form.imgUrl.data
         post.category = form.category.data
         post.save() # http://docs.peewee-orm.com/en/latest/peewee/querying.html
-        return redirect("/{}".format(post.neighbor_id))
+        return redirect("/posts/{}".format(post_id))
 
     return render_template('neighborpage.html', neighbor=post.neighbor, post=post, form=form) 
 
@@ -311,32 +311,32 @@ if __name__ == '__main__':
             imageNeighb = 'https://images.unsplash.com/photo-1506047526346-2bad9ca0cec4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
             )
         models.Neighbor.create_neighborhood(
-            neighbname = 'Financial District2',
+            neighbname = 'Richmond District',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://images.unsplash.com/photo-1538445289442-ac987a2637e6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
+            imageNeighb = 'https://gmcdn-sxcqif3sepi.netdna-ssl.com/city-guides/img/uploads/nhood/original/1492218427.86190.jpg'
             )
         models.Neighbor.create_neighborhood(
-            neighbname = 'Chinatown2',
+            neighbname = 'Russian Hill',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb ='https://media.timeout.com/images/102875459/630/472/image.jpg'
+            imageNeighb ='https://images.unsplash.com/photo-1526404423292-15db8c2334e5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80'
             )
         models.Neighbor.create_neighborhood(
-            neighbname = 'North Beach2',
+            neighbname = 'Sunset',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://images.unsplash.com/photo-1506047610595-ab105976d1ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80'
+            imageNeighb = 'https://images.unsplash.com/photo-1506222444025-c2b1d9fb7691?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
             )
         models.Neighbor.create_neighborhood(
-            neighbname = 'SoMa2',
+            neighbname = 'Alamo Square',
             city = 'San Francisco',
             state = 'California',
             country = 'USA',
-            imageNeighb = 'https://images.unsplash.com/photo-1506047526346-2bad9ca0cec4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80'
+            imageNeighb = 'https://images.unsplash.com/photo-1519227355453-8f982e425321?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1789&q=80'
             )
         models.User.create_user(
             username='nass',
@@ -359,7 +359,79 @@ if __name__ == '__main__':
             fullname= 'Beautiful Heggy',
             profileImgUrl= "http://localhost:8000/static/heggyprofile.png"
             )
-            
+        models.User.create_user(
+            username='Homer',
+            email="homer@ga.com",
+            password='123',
+            fullname= 'Homer Simpson',
+            profileImgUrl= 'http://interactive.nydailynews.com/2016/05/simpsons-quiz/img/simp1.jpg'
+            )
+
+        models.Post.create_post(
+            user=1,
+            neighbor=1,
+            title='Downtown',
+            text= 'Downtown has lots of traffic',
+            address= 'downtown san francisco',
+            imgUrl= 'https://s.hdnux.com/photos/36/13/34/7911185/13/920x920.jpg',
+            category='downtown'
+            )
+        models.Post.create_post(
+            user=1,
+            neighbor=1,
+            title='Coding School',
+            text= 'General Assembly is a great coding school',
+            address= '225 bush st san francisco',
+            imgUrl= 'https://s3.amazonaws.com/bloc-global-assets/almanac-assets/bootcamps/logos/000/002/669/original/General-Assembly.png?1467187329',
+            category='School'
+            )
+        models.Post.create_post(
+            user=4,
+            neighbor=3,
+            title='Piiza Pizza',
+            text= 'Golden Boy is a great pizza place!',
+            address= 'Golden Boy san francisco',
+            imgUrl= 'https://media.cntraveler.com/photos/5a9488dc0e2cf839e9dbfba4/4:5/w_767,c_limit/Golden-Boy-Pizza_SORAYA-MATOS_2018__MG_0514.jpg',
+            category='Food'
+            )
+        models.Post.create_post(
+            user=4,
+            neighbor=6,
+            title='Crooked Street',
+            text= 'Why is lombard st so crooked? Driving down this street makes me naseous.',
+            address= 'Lombard st san francisco',
+            imgUrl= 'https://i.pinimg.com/originals/5a/8d/ff/5a8dff7a0c12e614da2f5d401fa47592.jpg',
+            category='Complaints'
+            )
+        models.Post.create_post(
+            user=4,
+            neighbor=7,
+            title='Nice Beach',
+            text= 'This beach has too much sand! And is too windy!',
+            address= 'Ocean beach st san francisco',
+            imgUrl= 'https://www.tripsavvy.com/thmb/Kq9SBqeJ6RPQvkyo3WTBnMtMv3I=/960x0/filters:no_upscale():max_bytes(150000):strip_icc()/IMG_9157-1000x1500-56a387c93df78cf7727ddf1b.jpg',
+            category='Complaints'
+            )
+        models.Post.create_post(
+            user=2,
+            neighbor=4,
+            title='Craft beer!',
+            text= 'Soma has a lot of breweries and beer bars for craft beers!',
+            address= 'Cellar Maker st san francisco',
+            imgUrl= 'https://fastly.4sqi.net/img/general/699x268/558158_cbJM1STlRy-sZCtkLFCryq2CaXpfwL_Wl9P-tq2e_d4.jpg',
+            category='Food and Drink'
+            )
+        models.Post.create_post(
+            user=3,
+            neighbor=8,
+            title='Painted Ladies',
+            text= 'These are the houses where they filmed full house!',
+            address= 'Painted Ladies st san francisco',
+            imgUrl= 'https://de-web-media.s3.amazonaws.com/specs_images/the-painted-ladies-of-san-francisco/jondoeforty1.jpg',
+            category='Tourist things'
+            )
+
+
 
     except ValueError:
         pass
