@@ -4,7 +4,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import check_password_hash
 from werkzeug.utils import secure_filename
 import os
-import models
+import models 
 import forms
 import json
 # to upload photo
@@ -52,7 +52,9 @@ def handle_signup(form):
         username=form.username.data,
         email=form.email.data,
         password=form.password.data,
-        fullname=form.fullname.data)
+        fullname=form.fullname.data,
+        profileImgUrl=form.profileImgUrl.data
+)
     return redirect(url_for('index'))
 
 def handle_signin(form):
@@ -142,23 +144,23 @@ def profilepage(username):
 
     return render_template('user.html', user=user,posts=posts) 
 
-@app.route('/profile/<username>/edit', methods=['GET', 'PUT'])
-@login_required
-def edit_user(username):
-    # userid = g.user._get_current_object()
-    user = models.User.get(models.User.username == username)
-    form = forms.SignUpForm()
-    if form.validate_on_submit():
-        user.username = form.username.data
-        user.fullname = form.fullname.data
-        # user.picture = form.address.data
-        user.save()
-        return redirect("/{}".format(user.username))
+# @app.route('/profile/<username>/edit', methods=['GET', 'PUT'])
+# @login_required
+# def edit_user(username):
+#     user = models.User.get(models.User.username == username)
+
+#     form = forms.SignUpForm()
+#     if form.validate_on_submit():
+#         user.username = form.username.data
+#         user.fullname = form.fullname.data
+#         # user.picture = form.address.data
+#         user.save()
+#         return redirect("/{}".format(user.username))
     
-    return render_template('user.html', user=user, form=form)
+#     return render_template('user.html', user=user, form=form)
 
 
-# name of the post sf= 1 whicb here is postid
+# name of the post sf= 1 which here is postid
 @app.route('/profile/<postid>/delete')
 @login_required # todo: before submitting activate this to prevent users to delete w/o login
 def delete_post(postid):
@@ -241,18 +243,6 @@ def logout():
     logout_user()
     flash("You've been logged out", "success")
     return redirect(url_for('index'))
-
-@app.route('/new_post', methods=('GET', 'POST'))
-@login_required
-def new_post():
-    form = forms.PostForm()
-    
-    if form.validate_on_submit():
-        models.Post.create(user=g.user._get_current_object(), neighbor=g.neighbor.__get_current_object(),
-                           text=form.content.data.strip())
-        flash("Message posted! Thanks!", "success")
-        return redirect(url_for('index'))
-    return render_template('posts.html', form=form)
 
 # about us page
 @app.route('/aboutUs')
@@ -352,20 +342,25 @@ if __name__ == '__main__':
             username='nass',
             email="nass@ga.com",
             password='123',
-            fullname= 'Nassima Bouz'
+            fullname= 'Nassima Bouz',
+            profileImgUrl= "http://localhost:8000/static/NassimaB.jpeg"
             )
         models.User.create_user(
             username='alom',
             email="alom@ga.com",
             password='123',
-            fullname= 'Alom Hossain'
+            fullname= 'Alom Hossain',
+            profileImgUrl= 'http://localhost:8000/static/alom.jpg'
             )
         models.User.create_user(
             username='Heggy',
-            email="huggy@ga.com",
+            email="heggy@ga.com",
             password='123',
-            fullname= 'Beautiful Huggy'
+            fullname= 'Beautiful Heggy',
+            profileImgUrl= "http://localhost:8000/static/heggyprofile.png"
             )
+            
+
     except ValueError:
         pass
 
