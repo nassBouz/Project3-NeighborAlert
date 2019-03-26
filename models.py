@@ -13,6 +13,9 @@ DATABASE = SqliteDatabase('neighbors.db')
 #  this will no longer work on my local machine b/ we are connectin tto heroku
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
 
+# ------------------- ----------------------------------- #
+# -------------------Neighbor Model --------------------- #
+# ------------------- ----------------------------------- #
 class Neighbor(Model):
     neighbname = CharField(unique=True)
     city = CharField()
@@ -24,9 +27,6 @@ class Neighbor(Model):
         database = DATABASE
         order_by = ('-neighbname',)
 
-    # @classmethod
-    # def get_neighbor(cls,neighbname):
-    #     return Neighbor.select().where(Neighbor.neighbname == self)
     @classmethod
     def get_neighbor(self):
         return Neighbor.select().where(Neighbor.neighname == self)
@@ -44,7 +44,9 @@ class Neighbor(Model):
         except IntegrityError:
             raise ValueError("Neighborhood already exists")
 
-
+# ------------------- ----------------------------------- #
+# -------------------User Model ------------------------- #
+# ------------------- ----------------------------------- #
 class User(UserMixin, Model):
     username = CharField(unique=True)
     email = CharField(unique=True)
@@ -80,7 +82,9 @@ class User(UserMixin, Model):
             (Post.user == self)
         )
 
-
+# ------------------- ----------------------------------- #
+# ------------------- Post Model ------------------------ #
+# ------------------- ----------------------------------- #
 class Post(Model):
     datePostCreated = DateTimeField(default=datetime.datetime.now())
     user = ForeignKeyField(
@@ -89,20 +93,8 @@ class Post(Model):
     )
     neighbor = ForeignKeyField(
         model= Neighbor,
-        # not sure backref to posts ?
         backref='posts' 
     )
-    # CATEGORY_CHOICES = (
-    #     (0, 'Event'),
-    #     (1, 'Garage Sale'),
-    #     (2, 'Play Dates'),
-    #     (3, 'Burglary/theft'),
-    #     (4, 'Lost and Found'),
-    #     (5, 'Play Date'),
-    #     (6, 'Other'))
-    # category = IntegerField(choices=CATEGORY_CHOICES)
-    # def get_category_label(self):
-    #     return dict(self.CATEGORY_CHOICES)[self.category]
 
     title = TextField()
     address = TextField()
@@ -144,10 +136,9 @@ class Post(Model):
         except IntegrityError:
             raise ValueError("No posts exist!!!")
         return 
-    # def get_stream(self):
-    #     return Comment.select().where(
-    #         (Comment.post == self)
-    #     )
+# ------------------- ----------------------------------- #
+# ------------------- Comment Model --------------------- #
+# ------------------- ----------------------------------- #
 class Comment(Model):
     dateCommentCreated= DateTimeField(default=datetime.datetime.now())
     user = ForeignKeyField(

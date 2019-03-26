@@ -245,9 +245,6 @@ label, h3, h6, h4, p,i, time{
     margin-top: 120px;
 }
 
-/* button {
-    margin-bottom: 10px;
-} */
 
 /* hamburger to show up in small screen */
 @media only screen and (max-width: 815px) {
@@ -266,12 +263,6 @@ label, h3, h6, h4, p,i, time{
     .hamburger-menu-icon {
         display: none !important;
     }
-    /* #headwrap{
-        display: none !important;
-    } */
-    /* #SignInModal{
-        display: block;
-    } */
     #post-map-wrap{
         display: flex;
         justify-content: space-between;

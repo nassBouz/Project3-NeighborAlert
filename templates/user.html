@@ -3,28 +3,29 @@
 
 {% block content %}
     <div class="profile-wrap">
+        
         <div class="profile-div" id="my-posts">
-                <h5 class="post-title">My Posts</h5>
-                {% if posts %}    
-                    {% for post in posts %}
-                        <article class="message-body">
-                            <div>
-                                <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
-                            </div>
-                            <div>
-                                {{post.text}}
-                            </div>
-                            <a href={{url_for('edit_post', postid=post.id)}}><button class="btn btn-dark" id="submitButton">Edit</button></a>
-                            <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-danger" id="submitButton">Delete</button></a>
-                        </article>
-                    {% endfor %}
-                {% endif %}
+            <h5 class="post-title">My Posts</h5>
+            {% if posts %}    
+                {% for post in posts %}
+                    <article class="message-body">
+                        <div>
+                            <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
+                        </div>
+                        <div>
+                            {{post.text}}
+                        </div>
+                        <a href={{url_for('edit_post', postid=post.id)}}><button class="btn btn-dark" id="submitButton">Edit</button></a>
+                        <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-danger" id="submitButton">Delete</button></a>
+                    </article>
+                {% endfor %}
+            {% endif %}
         </div>
+
         <div class="profile-div">
             <h5 class="post-title">My Profile</h5>
             <div id="profile-section">
                 <img id="profile-img" src={{user.profileImgUrl}} />
-
                 <div>
                     <h5>Full Name: {{ user.fullname }}</h5>
                     <h5>User Name: {{ user.username }}</h5>
@@ -32,34 +33,6 @@
                     <h5>Joined On : <time data-time="{{ user.joined_at }}" class="distime" datetime="{{ user.joined_at.strftime('%Y-%m-%d') }}">{{ user.joined_at.strftime('%Y-%m-%d') }}</time></h4>
                 </div>
             </div>
-
-            
         </div>
     </div>
 {% endblock %}
-
-    <!-- <h3>My Profile Page</h3>
-    <div id="profile-section">
-        <h4>{{ user.fullname }}</h4>
-        <h4>{{ user.username }}</h4>
-        <h4>{{ user.email }}</h4>
-        <h6>Joined On <time data-time="{{ user.joined_at }}" class="distime" datetime="{{ user.joined_at.strftime('%Y-%m-%d') }}">{{ user.joined_at.strftime('%Y-%m-%d') }}</time></h6>
-    </div>
-    <div id="my-posts">
-        <h5 class="post-title">My Posts</h5>
-        {% if posts %}    
-            {% for post in posts %}
-                <article class="message-body">
-                    <div>
-                        <a href={{url_for('posts', id=post.id)}}>{{post.title}}</a>
-                    </div>
-                    <div>
-                        {{post.text}}
-                    </div>
-                    <a href={{url_for('edit_post', postid=post.id)}}><button class="btn btn-dark" id="submitButton">Edit</button></a>
-                    <a href={{url_for('delete_post', postid=post.id)}}><button class="btn btn-danger" id="submitButton">Delete</button></a>
-                </article>
-            {% endfor %}
-        {% endif %}
-    </div>
-</div> -->

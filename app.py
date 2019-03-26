@@ -7,8 +7,6 @@ import os
 import models 
 import forms 
 import json
-# to upload photo
-from flask import send_from_directory
 from keyNeigh import keyNeigh
 
 #///////////uncomment this for heroku///////////////
@@ -21,6 +19,7 @@ PORT = 8000
 app = Flask(__name__)
 app.secret_key= keyNeigh
 login_manager = LoginManager()
+
 ##sets up our login for the app
 login_manager.init_app(app)
 login_manager.login_view = '/'
@@ -44,8 +43,7 @@ def after_request(response):
     """Close the database connection after each request."""
     g.db.close()
     return response
-
-
+# signup user
 def handle_signup(form):
     flash('Welcome new member!!!', 'success')
     models.User.create_user(
@@ -54,9 +52,9 @@ def handle_signup(form):
         password=form.password.data,
         fullname=form.fullname.data,
         profileImgUrl=form.profileImgUrl.data
-)
+    )
     return redirect(url_for('index'))
-
+# singin user
 def handle_signin(form):
     try:
         user = models.User.get(models.User.email == form.email.data)
@@ -64,36 +62,20 @@ def handle_signin(form):
         flash("your email or password doesn't match", "error")
     else:
         if check_password_hash(user.password, form.password.data):
-            ## creates session
             login_user(user)
             flash('Hi! You have successfully Signed In!!!', 'success signin')
             return redirect(url_for('index'))
         else:
             flash("your email or password doesn't match", "error")
+# logout 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("You've been logged out", "success")
+    return redirect(url_for('index'))
 
-
-# ///////////////// this code is from https://flask-wtf.readthedocs.io/en/latest/form.html, http://www.patricksoftwareblog.com/tag/flask-uploads/
-
-
-@app.route('/photo', methods=['GET', 'POST'])
-def upload():
-    form = forms.ImageUpload()
-    if form.validate_on_submit():
-        f = form.photo.data
-        filename = secure_filename(f.filename )
-        f.save(os.path.join(
-            app.instance_path, 'photos', filename
-        ))
-        return redirect(url_for('upload'))
-    return render_template('downloadPicture.html', form=form)
-# see the pictures in the browser
-@app.route('/photo/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'],
-                               filename)
-
-# //////////////////
-
+#landing page 
 @app.route('/', methods=('GET', 'POST'))
 def index():
     neighborhoods = models.Neighbor.select()
@@ -108,7 +90,7 @@ def index():
 
     return render_template('auth.html', neighborhoods=neighborhoods, sign_up_form=sign_up_form, sign_in_form=sign_in_form)
 
-
+#Neighborhood page
 @app.route('/<neighborid>', methods=['GET','POST'])
 def neighborpage(neighborid):
     sign_in_form = forms.SignInForm()
@@ -121,7 +103,6 @@ def neighborpage(neighborid):
 
     elif sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
-
 
     form = forms.PostForm()
     if form.validate_on_submit():
@@ -137,6 +118,7 @@ def neighborpage(neighborid):
 
     return render_template('posts.html', neighbor=neighbor_model, sign_in_form=sign_in_form, sign_up_form=sign_up_form, posts=posts, form=form, post={"title":"","text":"","address":"","imgUrl":"","category":""}) 
 
+# user profile page
 @app.route('/profile/<username>', methods=['GET'])
 def profilepage(username):
     user = models.User.get(models.User.username == username)
@@ -144,51 +126,36 @@ def profilepage(username):
 
     return render_template('user.html', user=user,posts=posts) 
 
-# @app.route('/profile/<username>/edit', methods=['GET', 'PUT'])
-# @login_required
-# def edit_user(username):
-#     user = models.User.get(models.User.username == username)
-
-#     form = forms.SignUpForm()
-#     if form.validate_on_submit():
-#         user.username = form.username.data
-#         user.fullname = form.fullname.data
-#         # user.picture = form.address.data
-#         user.save()
-#         return redirect("/{}".format(user.username))
-    
-#     return render_template('user.html', user=user, form=form)
-
-
-# name of the post sf= 1 which here is postid
+# delete a poste in user's profile page
 @app.route('/profile/<postid>/delete')
-@login_required # todo: before submitting activate this to prevent users to delete w/o login
+@login_required 
 def delete_post(postid):
     post = models.Post.get(models.Post.id == postid)
     post.delete_instance()
 
     return redirect(url_for('profilepage', username=g.user._get_current_object().username))
 
-
+# edit post in the user's profile page
 @app.route('/profile/<postid>/edit', methods=['GET','POST']) # when you submit to update it is always POST!!!, First you GET the form from 'neighborpage.html' each field now has value=post.title, and user edits that info and POST route will submit that form Finally, save()
-@login_required # todo: before submitting activate this to prevent users to delete w/o login
+@login_required 
 def edit_post(postid):
-    post_id = int(postid) #convert id into integer 
+    post_id = int(postid)
     post = models.Post.get(models.Post.id == post_id)
     neighbor_model = models.Neighbor.get_by_id(post.neighbor_id)
-
+    # http://docs.peewee-orm.com/en/latest/peewee/querying.html
     form = forms.PostForm()
     if form.validate_on_submit():
-        post.title = form.title.data # form.title.data this is form data getting reassigned
+        post.title = form.title.data 
         post.text = form.text.data
         post.address = form.address.data
         post.imgUrl = form.imgUrl.data
         post.category = form.category.data
-        post.save() # http://docs.peewee-orm.com/en/latest/peewee/querying.html
+        post.save()
         return redirect("/posts/{}".format(post_id))
 
     return render_template('neighborpage.html', neighbor=post.neighbor, post=post, form=form) 
 
+# posts page
 @app.route('/posts')
 @app.route('/posts/<id>', methods =['GET','POST'])
 def posts(id=None):
@@ -201,7 +168,6 @@ def posts(id=None):
     elif sign_in_form.validate_on_submit():
         handle_signin(sign_in_form)
 
-
     if id == None:
         posts = models.Post.select().limit(100)
         return render_template('posts.html', posts=posts)
@@ -209,7 +175,6 @@ def posts(id=None):
         post_id = int(id)
         post = models.Post.get(models.Post.id == post_id)
         comments = post.comments
-
         form = forms.CommentForm()
         if form.validate_on_submit():
             models.Comment.create(
@@ -220,9 +185,9 @@ def posts(id=None):
 
             return redirect("/posts/{}".format(post_id))
 
-
         return render_template('post.html', post=post, form=form, comments=comments, sign_in_form=sign_in_form, sign_up_form=sign_up_form)
 
+# route to add and display comments
 @app.route('/comment')
 @app.route('/comment/<id>', methods=['GET','POST'])
 def comments(id=None):
@@ -235,20 +200,12 @@ def comments(id=None):
 
         return render_template('comment.html', comment=comment)
 
-
-
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    flash("You've been logged out", "success")
-    return redirect(url_for('index'))
-
 # about us page
 @app.route('/aboutUs')
 def aboutUs():
     return render_template('aboutUs.html')
 
+# like a post route
 @app.route('/like/<int:post_id>')
 @login_required
 def upvote(post_id):
@@ -430,8 +387,6 @@ if __name__ == '__main__':
             imgUrl= 'https://de-web-media.s3.amazonaws.com/specs_images/the-painted-ladies-of-san-francisco/jondoeforty1.jpg',
             category='Tourist things'
             )
-
-
 
     except ValueError:
         pass

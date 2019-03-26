@@ -1,69 +1,68 @@
 {% extends "layout.html" %}
 {% from 'macros.html' import render_field %}
 
-
 {% block signin %}
-<form method="POST" action="" class="form">
-    {{ sign_in_form.hidden_tag() }}
+    <form method="POST" action="" class="form">
+        {{ sign_in_form.hidden_tag() }}
 
-    {% for field in sign_in_form %}
-        {{ render_field(field) }}
-    {% endfor %}
-    <button type="submit" class="btn btn-dark" id="submit">Sign In!</button>
-</form>
+        {% for field in sign_in_form %}
+            {{ render_field(field) }}
+        {% endfor %}
+
+        <button type="submit" class="btn btn-dark" id="submit">Sign In!</button>
+    </form>
 {% endblock %}
 
 {% block signup %}
-<form method="POST" action="" class="form">
-    {{ sign_up_form.hidden_tag() }}
+    <form method="POST" action="" class="form">
+        {{ sign_up_form.hidden_tag() }}
 
-    {% for field in sign_up_form %}
-        {{render_field(field)}}
+        {% for field in sign_up_form %}
+            {{render_field(field)}}
+        {% endfor %}
 
-    {% endfor %}
-    <button type="submit" class="btn btn-dark" id="submit">Register!</button>
-</form>
+        <button type="submit" class="btn btn-dark" id="submit">Register!</button>
+    </form>
 {% endblock %}
-
 
 {% block content %}
     <!--post and map wrap flex box for 2 -col   -->
     <div id="post-map-wrap">
         <section>
-                <h2>{{neighbor.neighbname}}</h2>
-
-        {% block post_list %}
-        {% endblock %}
-
+            <h2>{{neighbor.neighbname}}</h2>
+            {% block post_list %}
+            {% endblock %}
         </section>
+
         <section id="map">
             <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q={{neighbor.neighbname}},+{{neighbor.city}}&key=AIzaSyAVi2f6ymqCncDvu6tMlbsFGPq-kVK5WGE" allowfullscreen></iframe>
         </section>
     </div>
 
     {% if not current_user.is_authenticated %}
-    <div class="formbox" id="nonmember">
-        Not yet a member? Sign up today to start posting! Visit our
-            <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
-            <!-- Modal for Help -->
-            <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" id="modal-header">
-                            <h3 class="modal-title" id="helpTitle">Help Section</h3>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            {% include "help.html" %}
+        <div class="formbox" id="nonmember">
+            Not yet a member? Sign up today to start posting! Visit our
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#HelpModal">Help</button>
+                <!-- Modal for Help -->
+                <div class="modal fade" id="HelpModal" tabindex="-1" role="dialog" aria-labelledby="helpTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header" id="modal-header">
+                                <h3 class="modal-title" id="helpTitle">Help Section</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% include "help.html" %}
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div> <!-- ************** end of Modal for help-->
-        page for more info.
-    </div>
+                </div> <!-- ************** end of Modal for help-->
+            page for more info.
+        </div>
     {% endif %}
+
     {% if current_user.is_authenticated %}
         {% if not posts %}
             <div>There is no post about {{neighbor.neighbname}} currently!  Please create one!</div>
@@ -94,4 +93,5 @@
             <button type=submit class="btn btn-primary" id="submitButton">Submit Post</button>
         </form>
     {% endif %}
+    
 {% endblock %}
