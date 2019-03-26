@@ -1,0 +1,36 @@
+.jumbotron {
+    background-color: #16FDFF;
+    color: #fff;
+    padding: 100px 25px;
+  }
+  .container-fluid {
+    padding: 60px 50px;
+  }
+  .bg-grey {
+    background-color: #f6f6f6;
+  }
+ 
+  .thumbnail{
+    height: 850px;
+    rotate : 30deg;
+  }
+
+ #services-section{
+   margin-top: 50px;
+ }
+
+  .logo-small {
+    color: #f4511e;
+    font-size: 75px;
+  }
+ #nassima-picture{
+    height:500px;
+  } 
+  /* media query */
+  @media screen and (max-width: 768px) {
+    .col-sm-4 {
+      text-align: center;
+      margin: 25px 0;
+    }
+  }
+ 
