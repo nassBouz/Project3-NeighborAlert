@@ -91,3 +91,6 @@ ENV/
 /node_modules
 *.db
 neighbors.db
+
+# secret key
+keyNeigh.py
